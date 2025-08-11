@@ -32,7 +32,7 @@ export default function Home() {
       ]
     },
     {
-      company: "Revolute",
+      company: "Revolute Eduverse",
       designation: "Founding Engineer",
       duration: "Jan 2022 - Jun 2022",
       companyUrl: "",
@@ -84,16 +84,36 @@ export default function Home() {
   return (
     <div className="p-8">
       <div className="max-w-5xl mx-auto">
-        <div className="py-1 mb-4">
-          <h1 className="text-3xl font-bold mb-1">Karun Agarwal</h1>
-          <p className="text-base text-gray-600">Software Engineer / Pet Parent</p>
-        </div>
-        
-        <div className="py-1 mb-4">
-          <h2 className="text-xl font-bold mb-2">About Me</h2>
-          <p className="text-gray-700 text-sm">
-            A technology enthusiast who skipped college to pursue his passion for solving real-world complex problems using tech, currently building in voice ai/ synthetic humans space
-          </p>
+        {/* Header Section with Photo on Right */}
+        <div className="flex items-center justify-between mb-6">
+          {/* Left side - Name and About Me */}
+          <div className="flex-1 pr-8">
+            <div className="py-1 mb-4">
+              <h1 className="text-3xl font-bold mb-1">Karun Agarwal</h1>
+              <p className="text-base text-gray-600">Software Engineer / Pet Parent</p>
+            </div>
+            
+            <div className="py-1">
+              <h2 className="text-xl font-bold mb-2">About Me</h2>
+              <p className="text-gray-700 text-sm">
+                A technology enthusiast who skipped college to pursue his passion for solving real-world complex problems using tech, currently building in voice ai/ synthetic humans space
+              </p>
+            </div>
+          </div>
+          
+          {/* Right side - Profile Photo */}
+          <div className="flex-shrink-0">
+            <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-gray-200 shadow-lg">
+              <Image
+                src="/profile-photo.jpg"
+                alt="Karun Agarwal"
+                width={160}
+                height={160}
+                className="w-full h-full object-cover"
+                priority
+              />
+            </div>
+          </div>
         </div>
         
         <div className="py-1">
