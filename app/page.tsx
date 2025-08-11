@@ -82,20 +82,20 @@ export default function Home() {
   ];
 
   return (
-    <div className="p-8">
+    <div className="p-8 min-h-screen" style={{ backgroundColor: 'var(--background)' }}>
       <div className="max-w-5xl mx-auto">
         {/* Header Section with Photo on Right */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-8 p-6 rounded-lg card-hover" style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}>
           {/* Left side - Name and About Me */}
           <div className="flex-1 pr-8">
-            <div className="py-1 mb-4">
-              <h1 className="text-3xl font-bold mb-1">Karun Agarwal</h1>
-              <p className="text-base text-gray-600">Software Engineer / Pet Parent</p>
+            <div className="py-2 mb-6">
+              <h1 className="text-4xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>Karun Agarwal</h1>
+              <p className="text-lg" style={{ color: 'var(--muted-foreground)' }}>Software Engineer / Pet Parent</p>
             </div>
             
-            <div className="py-1">
-              <h2 className="text-xl font-bold mb-2">About Me</h2>
-              <p className="text-gray-700 text-sm">
+            <div className="py-2">
+              <h2 className="text-xl font-bold mb-3" style={{ color: 'var(--foreground)' }}>About Me</h2>
+              <p className="text-base leading-relaxed" style={{ color: 'var(--muted-foreground)' }}>
                 A technology enthusiast who skipped college to pursue his passion for solving real-world complex problems using tech, currently building in voice ai/ synthetic humans space
               </p>
             </div>
@@ -103,7 +103,7 @@ export default function Home() {
           
           {/* Right side - Profile Photo */}
           <div className="flex-shrink-0">
-            <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-gray-200 shadow-lg">
+            <div className="w-40 h-40 rounded-full overflow-hidden border-4 shadow-lg" style={{ borderColor: 'var(--border)' }}>
               <Image
                 src="/profile-photo.jpg"
                 alt="Karun Agarwal"
@@ -116,9 +116,9 @@ export default function Home() {
           </div>
         </div>
         
-        <div className="py-1">
-          <h2 className="text-xl font-bold mb-3">Corporate Experience</h2>
-          <div>
+        <div className="py-2 p-6 rounded-lg card-hover" style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}>
+          <h2 className="text-2xl font-bold mb-6" style={{ color: 'var(--foreground)' }}>Corporate Experience</h2>
+          <div className="space-y-1">
             {experiences.map((exp, index) => (
               <Experience
                 key={index}

@@ -14,15 +14,16 @@ interface ExperienceProps {
 
 export default function Experience({ company, designation, duration, companyUrl, points }: ExperienceProps) {
   return (
-    <div className="mb-4 pb-3 border-b border-gray-200 last:border-b-0">
-      <div className="mb-2">
-        <h3 className="text-base font-semibold text-gray-900 mb-0.5">
+    <div className="mb-6 pb-4 border-b last:border-b-0" style={{ borderColor: 'var(--border)' }}>
+      <div className="mb-3">
+        <h3 className="text-lg font-semibold mb-1" style={{ color: 'var(--foreground)' }}>
           {companyUrl ? (
             <a 
               href={companyUrl} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-800 underline"
+              className="hover:opacity-80 transition-opacity duration-200"
+              style={{ color: 'var(--primary)' }}
             >
               {company}
             </a>
@@ -30,17 +31,17 @@ export default function Experience({ company, designation, duration, companyUrl,
             company
           )}
         </h3>
-        <p className="text-sm font-medium text-gray-700 mb-0.5">{designation}</p>
-        <p className="text-xs text-gray-500">{duration}</p>
+        <p className="text-base font-medium mb-1" style={{ color: 'var(--muted-foreground)' }}>{designation}</p>
+        <p className="text-sm" style={{ color: 'var(--secondary-foreground)' }}>{duration}</p>
       </div>
       
       {points.length > 0 && (
-        <div className="mt-2">
-          <ul className="space-y-0.5">
+        <div className="mt-3">
+          <ul className="space-y-2">
             {points.map((point, index) => (
               <li key={index} className="flex items-start">
-                <span className="text-gray-400 mr-1.5 text-xs">•</span>
-                <span className="text-gray-700 text-xs leading-tight">{point.text}</span>
+                <span className="mr-2 text-sm" style={{ color: 'var(--primary)' }}>•</span>
+                <span className="text-sm leading-relaxed" style={{ color: 'var(--muted-foreground)' }}>{point.text}</span>
               </li>
             ))}
           </ul>
