@@ -8,10 +8,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Software Engineer and Pet Parent",
+  title: "Karun Agarwal",
   description: "A technology enthusiast who skipped college to pursue his passion for solving real-world complex problems using tech",
   openGraph: {
-    title: "Software Engineer and Pet Parent",
+    title: "Karun Agarwal",
     description: "A technology enthusiast who skipped college to pursue his passion for solving real-world complex problems using tech",
     url: "https://www.singhalkarun.com",
     siteName: "Karun Agarwal",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Software Engineer and Pet Parent",
+    title: "Karun Agarwal",
     description: "A technology enthusiast who skipped college to pursue his passion for solving real-world complex problems using tech",
     images: ["/profile-photo.jpg"],
   },
