@@ -99,7 +99,6 @@ export default function ExperiencePage() {
 
           {/* Main content */}
           <main className="mt-16">
-            <h1 className="text-4xl font-bold text-gray-900 mb-16">Corporate Experience</h1>
             <div className="space-y-12">
               {experiences.map((exp, index) => (
                 <Experience
