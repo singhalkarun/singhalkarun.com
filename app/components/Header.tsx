@@ -1,15 +1,22 @@
-import Link from "next/link";
+"use client";
 
 interface HeaderProps {
   currentPage: "about" | "experience" | "projects";
 }
 
 export default function Header({ currentPage }: HeaderProps) {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header className="border-b border-gray-200 pb-6 mb-12">
       <nav className="flex justify-center space-x-12">
-        <Link 
-          href="/" 
+        <button 
+          onClick={() => scrollToSection('about')}
           className={`text-lg font-medium transition-colors duration-200 ${
             currentPage === "about" 
               ? "text-gray-900" 
@@ -17,9 +24,9 @@ export default function Header({ currentPage }: HeaderProps) {
           }`}
         >
           About
-        </Link>
-        <Link 
-          href="/experience" 
+        </button>
+        <button 
+          onClick={() => scrollToSection('experience')}
           className={`text-lg font-medium transition-colors duration-200 ${
             currentPage === "experience" 
               ? "text-gray-900" 
@@ -27,9 +34,9 @@ export default function Header({ currentPage }: HeaderProps) {
           }`}
         >
           Experience
-        </Link>
-        <Link 
-          href="/projects" 
+        </button>
+        <button 
+          onClick={() => scrollToSection('projects')}
           className={`text-lg font-medium transition-colors duration-200 ${
             currentPage === "projects" 
               ? "text-gray-900" 
@@ -37,7 +44,7 @@ export default function Header({ currentPage }: HeaderProps) {
           }`}
         >
           Projects
-        </Link>
+        </button>
       </nav>
     </header>
   );

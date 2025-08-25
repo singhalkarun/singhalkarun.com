@@ -1,5 +1,201 @@
-import About from "./components/About";
+import Image from "next/image";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Experience from "./components/Experience";
 
 export default function Home() {
-  return <About />;
+  const experiences = [
+    {
+      company: "Stealth Startup",
+      designation: "Co-Founder",
+      duration: "Aug 2025 - Present",
+      companyUrl: "",
+      points: [
+        { text: "Building AI Agents to do consumer research in 1 day" }
+      ]
+    },
+    {
+      company: "Krutrim",
+      designation: "Principal Engineer",
+      duration: "Feb 2025 - Aug 2025",
+      companyUrl: "https://www.olakrutrim.com",
+      points: []
+    },
+    {
+      company: "Samagra",
+      designation: "Senior Software Engineer",
+      duration: "Sep 2023 - Feb 2025",
+      companyUrl: "https://samagragovernance.in",
+      points: [
+        { text: "Led SRE efforts across 20+ independent projects" },
+        { text: "Founding engineer at BharatSahAiYak (n8n equivalent) - a platform to build multilingual AI agents - powered 4-5 large scale agents incl. KumbhSahAiYak (assistant for 600M+ religious gathering, 300K+ users, launched by Prime Minister of India) and KrishiSahAiYak (500K farmer interactions, top 30 IndiaAI Mission products)" },
+        { text: "Built self-serve DevOps framework that reduced onboarding time from 7 days to 1 hour" }
+      ]
+    },
+    {
+      company: "EsMagico",
+      designation: "Software Engineer 2",
+      duration: "Jul 2022 - Aug 2023",
+      companyUrl: "https://esmagico.com",
+      points: [
+        { text: "Led a 10+ member team to build the Plum Goodness app (1M+ downloads, 4.5★ rating on Android and iOS)" },
+        { text: "Designed and implemented a streamlined hiring framework for the engineering team" }
+      ]
+    },
+    {
+      company: "Revolute Eduverse",
+      designation: "Founding Engineer",
+      duration: "Jan 2022 - Jun 2022",
+      companyUrl: "",
+      points: [
+        { text: "Led team of 3 engineers to build an LMS to manage curriculum, daily classes, assignments, and student community" },
+        { text: "Built an upskilling platform for college students to make them job-ready in Software Development and Business Analytics" },
+        { text: "Built student acquisition flows and a referral platform for student ambassadors" }
+      ]
+    },
+    {
+      company: "Oodles",
+      designation: "Associate Consultant",
+      duration: "Feb 2021 - Dec 2021",
+      companyUrl: "https://www.oodles.com/",
+      points: [
+        { text: "Developed a Zoom-like video conferencing app supporting 15 participants with video, and a WhatsApp-style calling app with the ability to switch ongoing video calls to a TV screen" }
+      ]
+    },
+    {
+      company: "FutureX",
+      designation: "Founding Engineer",
+      duration: "May 2020 - Jan 2021",
+      companyUrl: "",
+      points: [
+        { text: "Set up Thinkific to give Futurex members seamless, on-demand access to exclusive content and self-paced learning" }
+      ]
+    },
+    {
+      company: "Chatpod",
+      designation: "Founding Engineer",
+      duration: "Dec 2019 - Nov 2020",
+      companyUrl: "",
+      points: [
+        { text: "Built an audio-first social app enabling real-time voice conversations with support for multi-speaker rooms and large audiences (1000+)" },
+        { text: "Built a data workflow to analyze user behavior and uncover retention insights using SQL, Excel, and Metabase" }
+      ]
+    },
+    {
+      company: "Toppr",
+      designation: "Content Developer",
+      duration: "Jan 2019 - Dec 2019",
+      companyUrl: "https://www.linkedin.com/company/toppr-com",
+      points: [
+        { text: "I used to write solutions for IIT Jee Mathematics Problems in LateX." }
+      ]
+    }
+  ];
+
+  const projects = [
+    {
+      title: "Scribbl - Multiplayer Drawing Game",
+      description: "A real-time multiplayer drawing and guessing game inspired by Skribbl.io. Players take turns drawing words while others compete to guess correctly and earn points.",
+      link: "https://github.com/singhalkarun/scribbl"
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-white flex flex-col">
+      <div className="flex-1">
+        <div className="max-w-4xl mx-auto px-6 py-12 pb-32">
+          <Header currentPage="about" />
+
+          {/* About Section */}
+          <section id="about" className="mt-16">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">About</h2>
+            <div className="flex flex-col lg:flex-row lg:items-start lg:space-x-12 space-y-8 lg:space-y-0">
+              {/* Photo section */}
+              <div className="w-full lg:w-auto lg:flex-shrink-0">
+                <div className="w-full max-w-sm mx-auto lg:mx-0">
+                  <div className="relative">
+                    <Image
+                      src="/profile-photo.jpg"
+                      alt="Karun Agarwal"
+                      width={400}
+                      height={300}
+                      className="w-full h-auto rounded-lg"
+                      priority
+                    />
+                  </div>
+                  {/* Photo caption */}
+                  <div className="mt-4 flex items-center text-sm text-gray-500">
+                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+                    </svg>
+                    <span>Software Engineer & Pet Parent</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bio text section */}
+              <div className="flex-1 lg:pt-4">
+                <p className="text-xl lg:text-2xl leading-relaxed text-gray-800">
+                  Hey. I am Karun, a 22 yo software engineer based in India. 
+                  I skipped college to pursue my passion for solving real-world complex 
+                  problems using technology. Most recently, I worked at{" "}
+                  <a 
+                    href="https://www.olakrutrim.com" 
+                    className="text-blue-600 hover:text-blue-800 underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Krutrim
+                  </a>{" "}
+                  as the youngest Principal Engineer. Currently, I am building in the voice AI and synthetic humans space.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Experience Section */}
+          <section id="experience" className="mt-24">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">Experience</h2>
+            <div className="space-y-12">
+              {experiences.map((exp, index) => (
+                <Experience
+                  key={index}
+                  company={exp.company}
+                  designation={exp.designation}
+                  duration={exp.duration}
+                  companyUrl={exp.companyUrl}
+                  points={exp.points}
+                />
+              ))}
+            </div>
+          </section>
+
+          {/* Projects Section */}
+          <section id="projects" className="mt-24">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">Projects</h2>
+            <div className="space-y-8">
+              {projects.map((project, index) => (
+                <div key={index}>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    <a 
+                      href={project.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 transition-colors duration-200"
+                    >
+                      {project.title}
+                    </a>
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    {project.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+      </div>
+      <Footer />
+    </div>
+  );
 }

@@ -44,7 +44,7 @@ export default function Experience({ company, designation, duration, companyUrl,
           <ul className="space-y-4">
             {points.map((point, index) => (
               <li key={index} className="flex items-start">
-                <span className="mr-4 text-base text-blue-600 mt-1">•</span>
+                <span className="mr-4 text-base text-blue-600 flex-shrink-0">•</span>
                 <span className="text-base leading-relaxed text-gray-700">{point.text}</span>
               </li>
             ))}
