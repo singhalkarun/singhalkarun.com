@@ -94,7 +94,7 @@ export default function ExperiencePage() {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <div className="flex-1">
-        <div className="max-w-4xl mx-auto px-6 py-12">
+        <div className="max-w-4xl mx-auto px-6 py-12 pb-32">
           <Header currentPage="experience" />
 
           {/* Main content */}
