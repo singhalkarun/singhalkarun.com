@@ -2,6 +2,7 @@ import Image from "next/image";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Experience from "./components/Experience";
+import History from "./components/History";
 
 export default function Home() {
   const experiences = [
@@ -152,6 +153,9 @@ export default function Home() {
               </div>
             </div>
           </section>
+
+          {/* History Section */}
+          <History />
 
           {/* Experience Section */}
           <section id="experience" className="mt-24">
