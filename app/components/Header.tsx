@@ -1,5 +1,31 @@
 "use client";
 
+interface NavButtonProps {
+  sectionId: string;
+  label: string;
+  currentPage: string;
+  isActive: boolean;
+  size?: "base" | "lg";
+  onClick: (sectionId: string) => void;
+}
+
+function NavButton({ sectionId, label, currentPage, isActive, size = "lg", onClick }: NavButtonProps) {
+  const sizeClass = size === "lg" ? "text-lg" : "text-base";
+  
+  return (
+    <button 
+      onClick={() => onClick(sectionId)}
+      className={`${sizeClass} font-medium transition-colors duration-200 ${
+        isActive 
+          ? "text-gray-900" 
+          : "text-gray-600 hover:text-gray-900"
+      }`}
+    >
+      {label}
+    </button>
+  );
+}
+
 interface HeaderProps {
   currentPage: "about" | "history" | "interests" | "experience" | "projects";
 }
@@ -12,120 +38,60 @@ export default function Header({ currentPage }: HeaderProps) {
     }
   };
 
-      return (
-      <header className="border-b border-gray-200 pb-6 mb-12">
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex justify-center space-x-8 lg:space-x-12">
-          <button 
-            onClick={() => scrollToSection('about')}
-            className={`text-lg font-medium transition-colors duration-200 ${
-              currentPage === "about" 
-                ? "text-gray-900" 
-                : "text-gray-600 hover:text-gray-900"
-            }`}
-          >
-            About
-          </button>
-          <button 
-            onClick={() => scrollToSection('history')}
-            className={`text-lg font-medium transition-colors duration-200 ${
-              currentPage === "history" 
-                ? "text-gray-900" 
-                : "text-gray-600 hover:text-gray-900"
-            }`}
-          >
-            History
-          </button>
-          <button 
-            onClick={() => scrollToSection('interests')}
-            className={`text-lg font-medium transition-colors duration-200 ${
-              currentPage === "interests" 
-                ? "text-gray-900" 
-                : "text-gray-600 hover:text-gray-900"
-            }`}
-          >
-            Interests
-          </button>
-          <button 
-            onClick={() => scrollToSection('experience')}
-            className={`text-lg font-medium transition-colors duration-200 ${
-              currentPage === "experience" 
-                ? "text-gray-900" 
-                : "text-gray-600 hover:text-gray-900"
-            }`}
-          >
-            Experience
-          </button>
-          <button 
-            onClick={() => scrollToSection('projects')}
-            className={`text-lg font-medium transition-colors duration-200 ${
-              currentPage === "projects" 
-                ? "text-gray-900" 
-                : "text-gray-600 hover:text-gray-900"
-            }`}
-          >
-            Projects
-          </button>
-        </nav>
+  const navItems = [
+    { id: 'about', label: 'About' },
+    { id: 'history', label: 'History' },
+    { id: 'interests', label: 'Interests' },
+    { id: 'experience', label: 'Experience' },
+    { id: 'projects', label: 'Projects' }
+  ];
+
+  return (
+    <header className="border-b border-gray-200 pb-6 mb-12">
+      {/* Desktop Navigation */}
+      <nav className="hidden md:flex justify-center space-x-8 lg:space-x-12">
+        {navItems.map((item) => (
+          <NavButton
+            key={item.id}
+            sectionId={item.id}
+            label={item.label}
+            currentPage={currentPage}
+            isActive={currentPage === item.id}
+            onClick={scrollToSection}
+          />
+        ))}
+      </nav>
 
         {/* Mobile Navigation - 2 Lines */}
         <nav className="md:hidden">
           {/* First line: About, History, Interests */}
           <div className="flex justify-center space-x-6 mb-3">
-            <button 
-              onClick={() => scrollToSection('about')}
-              className={`text-base font-medium transition-colors duration-200 ${
-                currentPage === "about" 
-                  ? "text-gray-900" 
-                  : "text-gray-600 hover:text-gray-900"
-              }`}
-            >
-              About
-            </button>
-            <button 
-              onClick={() => scrollToSection('history')}
-              className={`text-base font-medium transition-colors duration-200 ${
-                currentPage === "history" 
-                  ? "text-gray-900" 
-                  : "text-gray-600 hover:text-gray-900"
-              }`}
-            >
-              History
-            </button>
-            <button 
-              onClick={() => scrollToSection('interests')}
-              className={`text-base font-medium transition-colors duration-200 ${
-                currentPage === "interests" 
-                  ? "text-gray-900" 
-                  : "text-gray-600 hover:text-gray-900"
-              }`}
-            >
-              Interests
-            </button>
+            {navItems.slice(0, 3).map((item) => (
+              <NavButton
+                key={item.id}
+                sectionId={item.id}
+                label={item.label}
+                currentPage={currentPage}
+                isActive={currentPage === item.id}
+                size="base"
+                onClick={scrollToSection}
+              />
+            ))}
           </div>
           
           {/* Second line: Experience, Projects */}
           <div className="flex justify-center space-x-6">
-            <button 
-              onClick={() => scrollToSection('experience')}
-              className={`text-base font-medium transition-colors duration-200 ${
-                currentPage === "experience" 
-                  ? "text-gray-900" 
-                  : "text-gray-600 hover:text-gray-900"
-              }`}
-            >
-              Experience
-            </button>
-            <button 
-              onClick={() => scrollToSection('projects')}
-              className={`text-base font-medium transition-colors duration-200 ${
-                currentPage === "projects" 
-                  ? "text-gray-900" 
-                  : "text-gray-600 hover:text-gray-900"
-              }`}
-            >
-              Projects
-            </button>
+            {navItems.slice(3).map((item) => (
+              <NavButton
+                key={item.id}
+                sectionId={item.id}
+                label={item.label}
+                currentPage={currentPage}
+                isActive={currentPage === item.id}
+                size="base"
+                onClick={scrollToSection}
+              />
+            ))}
           </div>
         </nav>
       </header>
