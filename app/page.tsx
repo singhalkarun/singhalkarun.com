@@ -111,7 +111,7 @@ export default function Home() {
 
           {/* About Section */}
           <section id="about" className="mt-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">About</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">About</h2>
             <div className="flex flex-col lg:flex-row lg:items-start lg:space-x-12 space-y-8 lg:space-y-0">
               {/* Photo section */}
               <div className="w-full lg:w-auto lg:flex-shrink-0">
@@ -138,7 +138,7 @@ export default function Home() {
                   problems using technology. Most recently, I worked at{" "}
                   <a 
                     href="https://www.olakrutrim.com" 
-                    className="text-blue-600 hover:text-blue-800 underline"
+                    className="text-black hover:text-gray-700 underline"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -158,7 +158,7 @@ export default function Home() {
 
           {/* Experience Section */}
           <section id="experience" className="mt-24">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Experience</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">Experience</h2>
             <div className="space-y-12">
               {experiences.map((exp, index) => (
                 <Experience
@@ -175,21 +175,21 @@ export default function Home() {
 
           {/* Projects Section */}
           <section id="projects" className="mt-24">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Projects</h2>
-            <div className="space-y-8">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">Projects</h2>
+            <div className="space-y-12">
               {projects.map((project, index) => (
-                <div key={index}>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                <div key={index} className="pb-12 border-b border-gray-200 last:border-b-0">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-6">
                     <a 
                       href={project.link} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 transition-colors duration-200"
+                      className="text-black hover:text-gray-700 underline transition-colors duration-200"
                     >
                       {project.title}
                     </a>
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-xl lg:text-2xl leading-relaxed text-gray-800">
                     {project.description}
                   </p>
                 </div>

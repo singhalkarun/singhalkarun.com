@@ -19,6 +19,6 @@ a:focus, button:focus {
 
 /* Selection styles */
 ::selection {
-  background: #e8f0fe;
-  color: #1a73e8;
+  background: #e5e5e5;
+  color: #171717;
 }

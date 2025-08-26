@@ -15,11 +15,12 @@ function NavButton({ sectionId, label, currentPage, isActive, size = "lg", onCli
   return (
     <button 
       onClick={() => onClick(sectionId)}
-      className={`${sizeClass} font-medium transition-colors duration-200 ${
+      className={`${sizeClass} font-medium duration-200 cursor-pointer focus:outline-none focus:ring-0 focus:border-none focus:ring-offset-0 focus:ring-transparent ${
         isActive 
           ? "text-gray-900" 
           : "text-gray-600 hover:text-gray-900"
       }`}
+      style={{ outline: 'none', WebkitTapHighlightColor: 'transparent' }}
     >
       {label}
     </button>
