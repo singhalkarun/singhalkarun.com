@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Experience from "./components/Experience";
 import History from "./components/History";
 import Interests from "./components/Interests";
+import Connect from "./components/Connect";
 import ImageCaption from "./components/ImageCaption";
 
 export default function Home() {
@@ -196,6 +197,9 @@ export default function Home() {
               ))}
             </div>
           </section>
+
+          {/* Connect Section */}
+          <Connect />
         </div>
       </div>
       <Footer />

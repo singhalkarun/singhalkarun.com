@@ -3,13 +3,12 @@
 interface NavButtonProps {
   sectionId: string;
   label: string;
-  currentPage: string;
   isActive: boolean;
   size?: "base" | "lg";
   onClick: (sectionId: string) => void;
 }
 
-function NavButton({ sectionId, label, currentPage, isActive, size = "lg", onClick }: NavButtonProps) {
+function NavButton({ sectionId, label, isActive, size = "lg", onClick }: NavButtonProps) {
   const sizeClass = size === "lg" ? "text-lg" : "text-base";
   
   return (
@@ -28,7 +27,7 @@ function NavButton({ sectionId, label, currentPage, isActive, size = "lg", onCli
 }
 
 interface HeaderProps {
-  currentPage: "about" | "history" | "interests" | "experience" | "projects";
+  currentPage: "about" | "history" | "interests" | "experience" | "projects" | "connect";
 }
 
 export default function Header({ currentPage }: HeaderProps) {
@@ -44,7 +43,8 @@ export default function Header({ currentPage }: HeaderProps) {
     { id: 'history', label: 'History' },
     { id: 'interests', label: 'Interests' },
     { id: 'experience', label: 'Experience' },
-    { id: 'projects', label: 'Projects' }
+    { id: 'projects', label: 'Projects' },
+    { id: 'connect', label: 'Connect' }
   ];
 
   return (
@@ -56,14 +56,13 @@ export default function Header({ currentPage }: HeaderProps) {
             key={item.id}
             sectionId={item.id}
             label={item.label}
-            currentPage={currentPage}
             isActive={currentPage === item.id}
             onClick={scrollToSection}
           />
         ))}
       </nav>
 
-        {/* Mobile Navigation - 2 Lines */}
+        {/* Mobile Navigation - 3 Lines */}
         <nav className="md:hidden">
           {/* First line: About, History, Interests */}
           <div className="flex justify-center space-x-6 mb-3">
@@ -72,7 +71,6 @@ export default function Header({ currentPage }: HeaderProps) {
                 key={item.id}
                 sectionId={item.id}
                 label={item.label}
-                currentPage={currentPage}
                 isActive={currentPage === item.id}
                 size="base"
                 onClick={scrollToSection}
@@ -81,13 +79,26 @@ export default function Header({ currentPage }: HeaderProps) {
           </div>
           
           {/* Second line: Experience, Projects */}
-          <div className="flex justify-center space-x-6">
-            {navItems.slice(3).map((item) => (
+          <div className="flex justify-center space-x-6 mb-3">
+            {navItems.slice(3, 5).map((item) => (
               <NavButton
                 key={item.id}
                 sectionId={item.id}
                 label={item.label}
-                currentPage={currentPage}
+                isActive={currentPage === item.id}
+                size="base"
+                onClick={scrollToSection}
+              />
+            ))}
+          </div>
+
+          {/* Third line: Connect */}
+          <div className="flex justify-center space-x-6">
+            {navItems.slice(5).map((item) => (
+              <NavButton
+                key={item.id}
+                sectionId={item.id}
+                label={item.label}
                 isActive={currentPage === item.id}
                 size="base"
                 onClick={scrollToSection}
