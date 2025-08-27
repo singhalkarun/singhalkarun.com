@@ -115,7 +115,7 @@ export default function Connect() {
                 ? "Carefully passing along your message..." 
                 : message 
                   ? message.text 
-                  : "Start the Conversation"
+                  : "Leave Me a Note"
               }
             </button>
           </div>
