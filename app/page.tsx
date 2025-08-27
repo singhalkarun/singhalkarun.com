@@ -30,8 +30,8 @@ export default function Home() {
       duration: "Sep 2023 - Feb 2025",
       companyUrl: "https://samagragovernance.in",
       points: [
-        { text: "Led SRE efforts across 20+ independent projects" },
         { text: "Founding engineer at BharatSahAiYak (n8n equivalent) - a platform to build multilingual AI agents - powered 4-5 large scale agents incl. KumbhSahAiYak (assistant for 600M+ religious gathering, 300K+ users, launched by Prime Minister of India) and KrishiSahAiYak (500K farmer interactions, top 30 IndiaAI Mission products)" },
+        { text: "Led SRE efforts across 20+ independent projects" },
         { text: "Built self-serve DevOps framework that reduced onboarding time from 7 days to 1 hour" }
       ]
     },

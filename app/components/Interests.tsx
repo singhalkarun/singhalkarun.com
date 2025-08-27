@@ -26,15 +26,15 @@ export default function Interests() {
         <div className="flex-1 order-2 lg:order-2">
           <div className="space-y-6">
             <p className="text-xl lg:text-2xl leading-relaxed text-gray-800">
-              I&apos;ve grown up seeing lot of puppies and cats take birth in my house and love them a lot. I am owned by 2 cats, &ldquo;Mia&rdquo; and &ldquo;Tia&rdquo;
+            I grew up surrounded by pets, and today I share my home with two cats, Mia and Tia, who keep life playful and grounded
             </p>
             
             <p className="text-xl lg:text-2xl leading-relaxed text-gray-800">
-              I love Music and been learning play Ukulele and recently learnt to play Sham, one of my favorite songs
+              I love Music and been learning to play Ukulele and recently learnt to play Sham, one of my favorite songs
             </p>
 
             <p className="text-xl lg:text-2xl leading-relaxed text-gray-800">
-                I love to travel and explore new places and cultures. I&apos;ve lived across multiple cities in India including Nainital, Kota, Delhi, Mumbai, and currently living in Bangalore
+            I love exploring new cultures and have lived across cities like Nainital, Kota, Delhi, Mumbai, and now Bangalore - each place shaping a piece of who I am
             </p>
           </div>
         </div>
