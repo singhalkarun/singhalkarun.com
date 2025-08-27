@@ -1,5 +1,7 @@
 "use client";
 
+import { useState, useEffect } from 'react';
+
 interface NavButtonProps {
   sectionId: string;
   label: string;
@@ -26,15 +28,18 @@ function NavButton({ sectionId, label, isActive, size = "lg", onClick }: NavButt
   );
 }
 
-interface HeaderProps {
-  currentPage: "about" | "history" | "interests" | "experience" | "projects" | "connect";
-}
-
-export default function Header({ currentPage }: HeaderProps) {
+export default function Header() {
+  const [currentPage, setCurrentPage] = useState<"about" | "history" | "interests" | "experience" | "projects" | "connect">("about");
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const headerHeight = document.querySelector('header')?.offsetHeight || 0;
+      const elementPosition = element.offsetTop - headerHeight - 20; // 20px extra offset for breathing room
+      
+      window.scrollTo({
+        top: elementPosition,
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -47,8 +52,33 @@ export default function Header({ currentPage }: HeaderProps) {
     { id: 'connect', label: 'Connect' }
   ];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const headerHeight = document.querySelector('header')?.offsetHeight || 0;
+      const scrollPosition = window.scrollY + headerHeight + 100; // 100px offset for better detection
+
+      for (const item of navItems) {
+        const element = document.getElementById(item.id);
+        if (element) {
+          const elementTop = element.offsetTop;
+          const elementBottom = elementTop + element.offsetHeight;
+          
+          if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
+            setCurrentPage(item.id as "about" | "history" | "interests" | "experience" | "projects" | "connect");
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial position
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [navItems]);
+
   return (
-    <header className="border-b border-gray-200 pb-6 mb-12">
+    <header className="sticky top-0 z-50 bg-white border-b border-gray-200 pt-6 pb-6 mb-12">
       {/* Desktop Navigation */}
       <nav className="hidden md:flex justify-center space-x-8 lg:space-x-12">
         {navItems.map((item) => (
@@ -62,7 +92,7 @@ export default function Header({ currentPage }: HeaderProps) {
         ))}
       </nav>
 
-        {/* Mobile Navigation - 3 Lines */}
+        {/* Mobile Navigation - 2 Lines */}
         <nav className="md:hidden">
           {/* First line: About, History, Interests */}
           <div className="flex justify-center space-x-6 mb-3">
@@ -78,23 +108,9 @@ export default function Header({ currentPage }: HeaderProps) {
             ))}
           </div>
           
-          {/* Second line: Experience, Projects */}
-          <div className="flex justify-center space-x-6 mb-3">
-            {navItems.slice(3, 5).map((item) => (
-              <NavButton
-                key={item.id}
-                sectionId={item.id}
-                label={item.label}
-                isActive={currentPage === item.id}
-                size="base"
-                onClick={scrollToSection}
-              />
-            ))}
-          </div>
-
-          {/* Third line: Connect */}
+          {/* Second line: Experience, Projects, Connect */}
           <div className="flex justify-center space-x-6">
-            {navItems.slice(5).map((item) => (
+            {navItems.slice(3).map((item) => (
               <NavButton
                 key={item.id}
                 sectionId={item.id}

@@ -107,8 +107,8 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <div className="flex-1">
-        <div className="max-w-4xl mx-auto px-6 py-12 pb-32">
-          <Header currentPage="about" />
+        <div className="max-w-4xl mx-auto px-6 pb-12 pb-32">
+          <Header />
 
           {/* About Section */}
           <section id="about" className="mt-16">
