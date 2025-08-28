@@ -19,7 +19,7 @@ export default function Home() {
       ]
     },
     {
-      company: "Krutrim",
+      company: "Krutrim (OLA)",
       designation: "Principal Engineer",
       duration: "Feb 2025 - Aug 2025",
       companyUrl: "https://www.olakrutrim.com",
