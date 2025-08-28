@@ -147,7 +147,10 @@ export default function Home() {
                       priority
                     />
                   </div>
-                  <ImageCaption text="Software Engineer & Pet Parent" />
+                  <ImageCaption 
+                    text="Software Engineer & Pet Parent" 
+                    hoverText="I got cats when they were 10 days old while staying in Mumbai and flew them in plane to Bengaluru"
+                  />
                 </div>
               </div>
 
@@ -165,7 +168,7 @@ export default function Home() {
                   >
                     Krutrim
                   </a>{" "}
-                  as the youngest Principal Engineer. Currently, I am building in the voice AI and synthetic humans space.
+                  as the youngest Principal Engineer. Currently, I am building fleet of AI agents to understand human behavior.
                 </p>
               </div>
             </div>

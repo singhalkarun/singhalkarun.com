@@ -18,7 +18,10 @@ export default function History() {
                 className="w-full h-auto rounded-lg"
               />
             </div>
-            <ImageCaption text="My First Rack Server" />
+            <ImageCaption 
+              text="My First Rack Server" 
+              hoverText="I was so obsessed that I turned my hotel room into a makeshift data center. The cleaning staff was very confused the next morning!"
+            />
           </div>
         </div>
 
