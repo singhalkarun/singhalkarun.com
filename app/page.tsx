@@ -59,10 +59,7 @@ export default function Home() {
           links: [
             {
               text: "Plum Goodness app",
-              url: "https://plumgoodness.com/",
-              iosUrl: "https://apps.apple.com/in/app/plum-goodness/id6444581662",
-              androidUrl: "https://play.google.com/store/apps/details?id=com.esmagico.plum",
-              webUrl: "https://plumgoodness.com/"
+              url: "https://plumgoodness.com/"
             }
           ]
         },

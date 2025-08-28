@@ -5,9 +5,6 @@ interface ExperiencePoint {
   links?: Array<{
     text: string;
     url: string;
-    iosUrl?: string;
-    androidUrl?: string;
-    webUrl?: string;
   }>;
 }
 
@@ -20,43 +17,14 @@ interface ExperienceProps {
 }
 
 export default function Experience({ company, designation, duration, companyUrl, points }: ExperienceProps) {
-  const getDeviceSpecificUrl = (link: { text: string; url: string; iosUrl?: string; androidUrl?: string; webUrl?: string }) => {
-    // If no platform-specific URLs are provided, use the default URL
-    if (!link.iosUrl && !link.androidUrl && !link.webUrl) {
-      return link.url;
-    }
-
-    // Check if we're in a browser environment
-    if (typeof window !== 'undefined') {
-      const userAgent = window.navigator.userAgent.toLowerCase();
-      
-      // Check for iOS
-      if (/iphone|ipad|ipod/.test(userAgent)) {
-        return link.iosUrl || link.webUrl || link.url;
-      }
-      
-      // Check for Android
-      if (/android/.test(userAgent)) {
-        return link.androidUrl || link.webUrl || link.url;
-      }
-      
-      // Desktop or other devices
-      return link.webUrl || link.url;
-    }
-    
-    // Server-side rendering fallback
-    return link.webUrl || link.url;
-  };
-
-  const renderTextWithLinks = (text: string, links?: Array<{ text: string; url: string; iosUrl?: string; androidUrl?: string; webUrl?: string }>) => {
+  const renderTextWithLinks = (text: string, links?: Array<{ text: string; url: string }>) => {
     if (!links || links.length === 0) {
       return text;
     }
 
     let result = text;
     links.forEach((link) => {
-      const deviceSpecificUrl = getDeviceSpecificUrl(link);
-      const linkElement = `<a href="${deviceSpecificUrl}" target="_blank" rel="noopener noreferrer" class="text-black hover:text-gray-700 underline transition-colors duration-200">${link.text}</a>`;
+      const linkElement = `<a href="${link.url}" target="_blank" rel="noopener noreferrer" class="text-black hover:text-gray-700 underline transition-colors duration-200">${link.text}</a>`;
       result = result.replace(link.text, linkElement);
     });
 
