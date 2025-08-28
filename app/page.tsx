@@ -93,7 +93,7 @@ export default function Home() {
       company: "FutureX",
       designation: "Founding Engineer",
       duration: "May 2020 - Jan 2021",
-      companyUrl: "",
+      companyUrl: "https://futurex.substack.com/",
       points: [
         { text: "Set up Thinkific to give Futurex members seamless, on-demand access to exclusive content and self-paced learning" }
       ]
@@ -102,7 +102,7 @@ export default function Home() {
       company: "Chatpod",
       designation: "Founding Engineer",
       duration: "Dec 2019 - Nov 2020",
-      companyUrl: "",
+      companyUrl: "https://www.youtube.com/channel/UCFMKhUwixlaNPrmcZ1bDWEg/videos",
       points: [
         { text: "Built an audio-first social app enabling real-time voice conversations with support for multi-speaker rooms and large audiences (1000+)" },
         { text: "Built a data workflow to analyze user behavior and uncover retention insights using SQL, Excel, and Metabase" }
