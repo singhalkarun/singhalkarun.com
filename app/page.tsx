@@ -31,7 +31,19 @@ export default function Home() {
       duration: "Sep 2023 - Feb 2025",
       companyUrl: "https://samagragovernance.in",
       points: [
-        { text: "Founding engineer at BharatSahAiYak (n8n equivalent) - a platform to build multilingual AI agents - powered 4-5 large scale agents incl. KumbhSahAiYak (assistant for 600M+ religious gathering, 300K+ users, launched by Prime Minister of India) and KrishiSahAiYak (500K farmer interactions, top 30 IndiaAI Mission products)" },
+        { 
+          text: "Founding engineer at BharatSahAiYak (n8n equivalent) - a platform to build multilingual AI agents - powered 4-5 large scale agents incl. KumbhSahAiYak (assistant for 600M+ religious gathering, 300K+ users, launched by Prime Minister of India) and KrishiSahAiYak (500K farmer interactions, top 30 IndiaAI Mission products)",
+          links: [
+            {
+              text: "KumbhSahAiYak",
+              url: "https://economictimes.indiatimes.com/tech/technology/what-is-kumbh-sahaiyak-the-digital-companion-for-maha-kumbh-2025-pilgrims/articleshow/117232877.cms"
+            },
+            {
+              text: "KrishiSahAiYak",
+              url: "https://www.thehindu.com/education/ahead-of-india-visit-bill-gates-lauds-odisha-farmers-for-using-ai-heres-their-story/article69348980.ece"
+            }
+          ]
+        },
         { text: "Led SRE efforts across 20+ independent projects" },
         { text: "Built self-serve DevOps framework that reduced onboarding time from 7 days to 1 hour" }
       ]
@@ -42,7 +54,18 @@ export default function Home() {
       duration: "Jul 2022 - Aug 2023",
       companyUrl: "https://esmagico.com",
       points: [
-        { text: "Led a 10+ member team to build the Plum Goodness app (1M+ downloads, 4.5★ rating on Android and iOS)" },
+        { 
+          text: "Led a 10+ member team to build the Plum Goodness app (1M+ downloads, 4.5★ rating on Android and iOS)",
+          links: [
+            {
+              text: "Plum Goodness app",
+              url: "https://plumgoodness.com/",
+              iosUrl: "https://apps.apple.com/in/app/plum-goodness/id6444581662",
+              androidUrl: "https://play.google.com/store/apps/details?id=com.esmagico.plum",
+              webUrl: "https://plumgoodness.com/"
+            }
+          ]
+        },
         { text: "Designed and implemented a streamlined hiring framework for the engineering team" }
       ]
     },

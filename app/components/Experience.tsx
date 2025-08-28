@@ -2,6 +2,13 @@ import React from 'react';
 
 interface ExperiencePoint {
   text: string;
+  links?: Array<{
+    text: string;
+    url: string;
+    iosUrl?: string;
+    androidUrl?: string;
+    webUrl?: string;
+  }>;
 }
 
 interface ExperienceProps {
@@ -13,6 +20,49 @@ interface ExperienceProps {
 }
 
 export default function Experience({ company, designation, duration, companyUrl, points }: ExperienceProps) {
+  const getDeviceSpecificUrl = (link: { text: string; url: string; iosUrl?: string; androidUrl?: string; webUrl?: string }) => {
+    // If no platform-specific URLs are provided, use the default URL
+    if (!link.iosUrl && !link.androidUrl && !link.webUrl) {
+      return link.url;
+    }
+
+    // Check if we're in a browser environment
+    if (typeof window !== 'undefined') {
+      const userAgent = window.navigator.userAgent.toLowerCase();
+      
+      // Check for iOS
+      if (/iphone|ipad|ipod/.test(userAgent)) {
+        return link.iosUrl || link.webUrl || link.url;
+      }
+      
+      // Check for Android
+      if (/android/.test(userAgent)) {
+        return link.androidUrl || link.webUrl || link.url;
+      }
+      
+      // Desktop or other devices
+      return link.webUrl || link.url;
+    }
+    
+    // Server-side rendering fallback
+    return link.webUrl || link.url;
+  };
+
+  const renderTextWithLinks = (text: string, links?: Array<{ text: string; url: string; iosUrl?: string; androidUrl?: string; webUrl?: string }>) => {
+    if (!links || links.length === 0) {
+      return text;
+    }
+
+    let result = text;
+    links.forEach((link) => {
+      const deviceSpecificUrl = getDeviceSpecificUrl(link);
+      const linkElement = `<a href="${deviceSpecificUrl}" target="_blank" rel="noopener noreferrer" class="text-black hover:text-gray-700 underline transition-colors duration-200">${link.text}</a>`;
+      result = result.replace(link.text, linkElement);
+    });
+
+    return <span dangerouslySetInnerHTML={{ __html: result }} />;
+  };
+
   return (
     <div className="pb-12 border-b border-gray-200 last:border-b-0">
       <div className="mb-8">
@@ -45,7 +95,9 @@ export default function Experience({ company, designation, duration, companyUrl,
             {points.map((point, index) => (
               <div key={index} className="flex items-start">
                 <span className="mr-4 text-xl text-black flex-shrink-0 mt-1">•</span>
-                <p className="text-xl lg:text-2xl leading-relaxed text-gray-800">{point.text}</p>
+                <p className="text-xl lg:text-2xl leading-relaxed text-gray-800">
+                  {renderTextWithLinks(point.text, point.links)}
+                </p>
               </div>
             ))}
           </div>
