@@ -91,14 +91,14 @@ export default function RootLayout({
         <meta name="msapplication-config" content="/browserconfig.xml" />
         
         {/* Google Analytics */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-04MT97LV6D"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7QPPZJN9Z"></script>
         <script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-04MT97LV6D');
+              gtag('config', 'G-K7QPPZJN9Z');
             `
           }}
         />
