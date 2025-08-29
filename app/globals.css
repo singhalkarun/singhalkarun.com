@@ -1,20 +1,9 @@
 @import "tailwindcss";
 
-/* Prevent horizontal scrolling on mobile */
-html, body {
-  overflow-x: hidden;
-  max-width: 100%;
-}
-
 body {
   background: #ffffff;
   color: #171717;
   font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
-
-/* Ensure all elements respect container width */
-* {
-  box-sizing: border-box;
 }
 
 /* Smooth transitions for all elements */
@@ -32,19 +21,4 @@ a:focus, button:focus {
 ::selection {
   background: #e5e5e5;
   color: #171717;
-}
-
-/* Mobile-specific fixes */
-@media (max-width: 768px) {
-  /* Ensure images don't overflow */
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  /* Prevent text from overflowing */
-  p, h1, h2, h3, h4, h5, h6 {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-  }
 }
