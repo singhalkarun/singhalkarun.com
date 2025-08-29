@@ -32,7 +32,7 @@ export default function Home() {
       companyUrl: "https://samagragovernance.in",
       points: [
         { 
-          text: "Founding engineer at BharatSahAiYak (n8n equivalent) - a platform to build multilingual AI agents - powered 4-5 large scale agents incl. KumbhSahAiYak (assistant for 600M+ religious gathering, 300K+ users, launched by Prime Minister of India) and KrishiSahAiYak (500K farmer interactions, top 30 IndiaAI Mission products)",
+          text: "Founding engineer at BharatSahAiYak (n8n equivalent) - a platform to build multilingual AI agents - powered 4-5 large scale agents incl. KumbhSahAiYak (assistant for 600M+ religious gathering, 300K+ users, launched by Prime Minister of India) and KrishiSahAiYak (500K farmer interactions, top 30 IndiaAI Mission products). It was later acquired by Krutrim (OLA)",
           links: [
             {
               text: "KumbhSahAiYak",
@@ -41,6 +41,14 @@ export default function Home() {
             {
               text: "KrishiSahAiYak",
               url: "https://www.thehindu.com/education/ahead-of-india-visit-bill-gates-lauds-odisha-farmers-for-using-ai-heres-their-story/article69348980.ece"
+            },
+            {
+              text: "Krutrim (OLA)",
+              url: "https://www.olakrutrim.com/"
+            },
+            {
+              text: "acquired",
+              url: "https://www.business-standard.com/technology/tech-news/krutrim-acquires-bharatsahaiyak-to-expand-ai-in-public-sector-125062000442_1.html"
             }
           ]
         },
