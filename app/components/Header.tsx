@@ -16,10 +16,10 @@ function NavButton({ sectionId, label, isActive, size = "lg", onClick }: NavButt
   return (
     <button 
       onClick={() => onClick(sectionId)}
-      className={`${sizeClass} font-medium duration-200 cursor-pointer focus:outline-none focus:ring-0 focus:border-none focus:ring-offset-0 focus:ring-transparent ${
+      className={`${sizeClass} font-medium duration-200 cursor-pointer focus:outline-none focus:ring-0 focus:border-none focus:ring-offset-0 focus:ring-transparent px-3 py-2 rounded-md transition-all ${
         isActive 
-          ? "text-gray-900" 
-          : "text-gray-600 hover:text-gray-900"
+          ? "text-gray-900 bg-gray-100 border-b-2 border-gray-900 font-semibold shadow-sm" 
+          : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
       }`}
       style={{ outline: 'none', WebkitTapHighlightColor: 'transparent' }}
     >
@@ -30,7 +30,13 @@ function NavButton({ sectionId, label, isActive, size = "lg", onClick }: NavButt
 
 export default function Header() {
   const [currentPage, setCurrentPage] = useState<"about" | "history" | "interests" | "experience" | "projects" | "connect">("about");
+  const [isScrolling, setIsScrolling] = useState(false);
+  
   const scrollToSection = (sectionId: string) => {
+    // Immediately update the active state when clicked
+    setCurrentPage(sectionId as "about" | "history" | "interests" | "experience" | "projects" | "connect");
+    setIsScrolling(true);
+    
     const element = document.getElementById(sectionId);
     if (element) {
       const headerHeight = document.querySelector('header')?.offsetHeight || 0;
@@ -40,6 +46,11 @@ export default function Header() {
         top: elementPosition,
         behavior: 'smooth'
       });
+      
+      // Re-enable scroll detection after animation completes
+      setTimeout(() => {
+        setIsScrolling(false);
+      }, 1000); // Adjust timing based on scroll animation duration
     }
   };
 
@@ -54,6 +65,9 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
+      // Don't update active state if we're in the middle of a programmatic scroll
+      if (isScrolling) return;
+      
       const headerHeight = document.querySelector('header')?.offsetHeight || 0;
       const scrollPosition = window.scrollY + headerHeight + 100; // 100px offset for better detection
 
@@ -75,7 +89,7 @@ export default function Header() {
     handleScroll(); // Check initial position
     
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [navItems]);
+  }, [navItems, isScrolling]);
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200 pt-6 pb-6 mb-12">
