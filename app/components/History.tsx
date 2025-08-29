@@ -33,7 +33,7 @@ export default function History() {
               I was elbow-deep in hardware: swapping RAM, re-imaging drives, and chasing down why a desktop refused to boot.
               
               {/* Hover popup */}
-              <div className="absolute bottom-full left-0 mb-2 px-4 py-3 bg-black text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 hover:opacity-100 transition-opacity duration-200 pointer-events-auto z-20 shadow-lg border border-gray-700 min-w-max">
+              <div className="hidden md:block absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-4 py-3 bg-black text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 hover:opacity-100 transition-opacity duration-200 pointer-events-auto z-20 shadow-lg border border-gray-700 max-w-xs break-words">
                 Want to see the game that made me skip meals? This retro masterpiece was my first taste of digital obsession! Check{" "}
                 <a 
                   href="https://archive.org/details/mac_Lode_Runner" 
@@ -44,7 +44,7 @@ export default function History() {
                 >
                   this
                 </a>
-                <div className="absolute top-full left-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-black"></div>
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-black"></div>
               </div>
             </div>
             
