@@ -78,7 +78,7 @@ export default function Header() {
   }, [navItems]);
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-gray-200 pt-6 pb-6 mb-12">
+    <header className="sticky top-0 z-50 bg-white border-b border-gray-200 pt-6 pb-6 mb-12 w-full overflow-x-hidden">
       {/* Desktop Navigation */}
       <nav className="hidden md:flex justify-center space-x-8 lg:space-x-12">
         {navItems.map((item) => (
@@ -93,9 +93,9 @@ export default function Header() {
       </nav>
 
         {/* Mobile Navigation - 2 Lines */}
-        <nav className="md:hidden">
+        <nav className="md:hidden w-full">
           {/* First line: About, History, Interests */}
-          <div className="flex justify-center space-x-6 mb-3">
+          <div className="flex justify-center space-x-4 sm:space-x-6 mb-3 px-2">
             {navItems.slice(0, 3).map((item) => (
               <NavButton
                 key={item.id}
@@ -109,7 +109,7 @@ export default function Header() {
           </div>
           
           {/* Second line: Experience, Projects, Connect */}
-          <div className="flex justify-center space-x-6">
+          <div className="flex justify-center space-x-4 sm:space-x-6 px-2">
             {navItems.slice(3).map((item) => (
               <NavButton
                 key={item.id}

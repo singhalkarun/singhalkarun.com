@@ -125,9 +125,9 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-white flex flex-col overflow-x-hidden">
       <div className="flex-1">
-        <div className="max-w-4xl mx-auto px-6 pb-12 pb-32">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 pb-12 pb-32 w-full">
           <Header />
 
           {/* About Section */}
