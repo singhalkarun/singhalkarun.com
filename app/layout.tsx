@@ -10,6 +10,35 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Karun Agarwal",
   description: "A technology enthusiast who skipped college to pursue his passion for solving real-world complex problems using tech",
+  keywords: [
+    "Karun Agarwal",
+    "Principal Engineer",
+    "AI Engineer",
+    "Krutrim",
+    "OLA",
+    "BharatSahAiYak",
+    "Kruti AI",
+    "Artificial Intelligence",
+    "Machine Learning",
+    "DevOps",
+    "Software Engineer",
+    "India",
+    "Bengaluru",
+    "Founding Engineer",
+    "Samagra"
+  ],
+  authors: [{ name: "Karun Agarwal" }],
+  creator: "Karun Agarwal",
+  publisher: "Karun Agarwal",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL("https://www.singhalkarun.com"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Karun Agarwal",
     description: "A technology enthusiast who skipped college to pursue his passion for solving real-world complex problems using tech",
@@ -31,10 +60,18 @@ export const metadata: Metadata = {
     title: "Karun Agarwal",
     description: "A technology enthusiast who skipped college to pursue his passion for solving real-world complex problems using tech",
     images: ["/profile-photo.jpg"],
+    creator: "@singhalkarun",
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -45,6 +82,58 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#000000" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Karun Agarwal" />
+        <meta name="msapplication-TileColor" content="#000000" />
+        <meta name="msapplication-config" content="/browserconfig.xml" />
+        
+        {/* Structured Data for Person */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Karun Agarwal",
+              jobTitle: "Software Engineer & Principal Engineer",
+              worksFor: {
+                "@type": "Organization",
+                name: "Krutrim (OLA)",
+                url: "https://www.olakrutrim.com"
+              },
+              description: "A technology enthusiast who skipped college to pursue his passion for solving real-world complex problems using technology",
+              url: "https://www.singhalkarun.com",
+              sameAs: [
+                "https://github.com/singhalkarun",
+                "https://linkedin.com/in/singhalkarun"
+              ],
+              image: "https://www.singhalkarun.com/profile-photo.jpg"
+            })
+          }}
+        />
+        
+        {/* Structured Data for WebSite */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Karun Agarwal",
+              url: "https://www.singhalkarun.com",
+              description: "Personal website of Karun Agarwal - Software Engineer & AI Enthusiast",
+              author: {
+                "@type": "Person",
+                name: "Karun Agarwal"
+              }
+            })
+          }}
+        />
+      </head>
       <body className={`${inter.variable} font-sans antialiased`}>
         {children}
       </body>
