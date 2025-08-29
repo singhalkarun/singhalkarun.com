@@ -23,7 +23,26 @@ export default function Home() {
       designation: "Principal Engineer",
       duration: "Feb 2025 - Aug 2025",
       companyUrl: "https://www.olakrutrim.com",
-      points: []
+      points: [
+        { 
+          text: "Led the DevOps for Kruti, an AI agent designed to proactively carry out tasks such as cab booking, food ordering, bill payments, image generation and research",
+          links: [
+            {
+              text: "Kruti",
+              url: "https://www.kruti.ai/"
+            }
+          ]
+        },
+        { 
+          text: "Led the development of bill payment assistant for Kruti",
+          links: [
+            {
+              text: "Kruti",
+              url: "https://www.kruti.ai/"
+            }
+          ]
+        }
+      ]
     },
     {
       company: "Samagra",
