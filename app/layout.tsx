@@ -8,7 +8,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Karun Agarwal",
+  title: "Karun Agarwal - Software Engineer",
   description: "A technology enthusiast who skipped college to pursue his passion for solving real-world complex problems using tech",
   keywords: [
     "Karun Agarwal",

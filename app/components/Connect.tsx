@@ -28,11 +28,11 @@ export default function Connect() {
 
   return (
     <section id="connect" className="mt-24">
-      <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">
+      <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">
         Connect With Me
-      </h2>
+      </h3>
       
-      <div>
+      <div> 
         <p className="text-xl lg:text-2xl leading-relaxed text-gray-800 mb-12">
           I&apos;d love to hear from thoughtful, curious people. If you&apos;d like to connect, please share a little about yourself:
         </p>

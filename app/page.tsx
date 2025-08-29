@@ -157,9 +157,19 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-6 pb-12 pb-32">
           <Header />
 
+          {/* Main H1 for SEO */}
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-4 mt-8">
+            Karun Agarwal - Software Engineer
+          </h1>
+
+          {/* Tagline */}
+          <h2 className="text-xl md:text-2xl font-semibold text-gray-700 text-center mb-12">
+            Building fleet of AI agents to understand human behavior
+          </h2>
+
           {/* About Section */}
           <section id="about" className="mt-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">About</h2>
+            <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">About</h3>
             <div className="flex flex-col lg:flex-row lg:items-start lg:space-x-12 space-y-8 lg:space-y-0">
               {/* Photo section */}
               <div className="w-full lg:w-auto lg:flex-shrink-0">
@@ -167,7 +177,7 @@ export default function Home() {
                   <div className="relative">
                     <Image
                       src="/profile-photo.jpg"
-                      alt="Karun Agarwal"
+                      alt="Karun Agarwal with his cat, software engineer based in India"
                       width={400}
                       height={300}
                       className="w-full h-auto rounded-lg"
@@ -209,7 +219,7 @@ export default function Home() {
 
           {/* Experience Section */}
           <section id="experience" className="mt-24">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">Experience</h2>
+            <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">Experience</h3>
             <div className="space-y-12">
               {experiences.map((exp, index) => (
                 <Experience
@@ -226,7 +236,7 @@ export default function Home() {
 
           {/* Projects Section */}
           <section id="projects" className="mt-24">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">Projects</h2>
+            <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">Projects</h3>
             <div className="space-y-12">
               {projects.map((project, index) => (
                 <div key={index} className="pb-12 border-b border-gray-200 last:border-b-0">

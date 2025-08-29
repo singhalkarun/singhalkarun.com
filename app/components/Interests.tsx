@@ -4,7 +4,7 @@ import ImageCaption from "./ImageCaption";
 export default function Interests() {
   return (
     <section id="interests" className="mt-24">
-      <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">Interests</h2>
+      <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">Interests</h3>
       <div className="flex flex-col lg:flex-row lg:items-start lg:space-x-12 space-y-8 lg:space-y-0">
         {/* Image section */}
         <div className="w-full lg:w-auto lg:flex-shrink-0 order-1 lg:order-1">
