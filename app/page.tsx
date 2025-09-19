@@ -1,13 +1,21 @@
+"use client";
+
 import Image from "next/image";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import FloatingToggle from "./components/FloatingToggle";
 import Experience from "./components/Experience";
 import History from "./components/History";
 import Interests from "./components/Interests";
 import Connect from "./components/Connect";
 import ImageCaption from "./components/ImageCaption";
+import { useMode } from "./contexts/ModeContext";
+import { catModeTexts, humanModeTexts } from "./utils/textTransform";
 
 export default function Home() {
+  const { isCatMode } = useMode();
+  const texts = isCatMode ? catModeTexts : humanModeTexts;
+  
   const experiences = [
     {
       company: "Stealth Startup",
@@ -146,7 +154,9 @@ export default function Home() {
   const projects = [
     {
       title: "Scribbl - Multiplayer Drawing Game",
-      description: "A real-time multiplayer drawing and guessing game inspired by Skribbl.io. Players take turns drawing words while others compete to guess correctly and earn points.",
+      description: isCatMode 
+        ? "A drawing game. Players draw words and others guess. I could draw better with my paws, obviously. *stretches*"
+        : "A real-time multiplayer drawing and guessing game inspired by Skribbl.io. Players take turns drawing words while others compete to guess correctly and earn points.",
       link: "https://github.com/singhalkarun/scribbl"
     }
   ];
@@ -154,22 +164,22 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <div className="flex-1">
-        <div className="max-w-4xl mx-auto px-6 pb-12 pb-32">
+        <div className="max-w-4xl mx-auto px-6 pb-12">
           <Header />
 
           {/* Main H1 for SEO */}
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-4 mt-8">
-            Karun Agarwal - Software Engineer
+            {texts.title}
           </h1>
 
           {/* Tagline */}
           <h2 className="text-xl md:text-2xl font-semibold text-gray-700 text-center mb-12">
-            Building fleet of AI agents to understand human behavior
+            {texts.tagline}
           </h2>
 
           {/* About Section */}
           <section id="about" className="mt-16">
-            <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">About</h3>
+            <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">{texts.aboutTitle}</h3>
             <div className="flex flex-col lg:flex-row lg:items-start lg:space-x-12 space-y-8 lg:space-y-0">
               {/* Photo section */}
               <div className="w-full lg:w-auto lg:flex-shrink-0">
@@ -185,8 +195,8 @@ export default function Home() {
                     />
                   </div>
                   <ImageCaption 
-                    text="Software Engineer & Pet Parent" 
-                    hoverText="I got cats when they were 10 days old while staying in Mumbai and flew them in plane to Bengaluru"
+                    text={texts.profileCaption} 
+                    hoverText={texts.profileHover}
                   />
                 </div>
               </div>
@@ -194,18 +204,35 @@ export default function Home() {
               {/* Bio text section */}
               <div className="flex-1 lg:pt-4">
                 <p className="text-xl lg:text-2xl leading-relaxed text-gray-800">
-                  Hey. I am Karun, a 22 yo software engineer based in India. 
-                  I skipped college to pursue my passion for solving real-world complex 
-                  problems using technology. Most recently, I worked at{" "}
-                  <a 
-                    href="https://www.olakrutrim.com" 
-                    className="text-black hover:text-gray-700 underline"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Krutrim
-                  </a>{" "}
-                  as the youngest Principal Engineer. Currently, I am building fleet of AI agents to understand human behavior.
+                  {isCatMode ? (
+                    <>
+                        This is Karun. He&apos;s 22 and thinks he&apos;s smart. He skipped college - good, more time to serve me. He worked at{" "}
+                      <a 
+                        href="https://www.olakrutrim.com" 
+                        className="text-black hover:text-gray-700 underline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Krutrim
+                      </a>{" "}
+                        as Principal Engineer, but I was the real principal. Now he builds AI agents, but I&apos;m the real agent. He should focus on my treats instead. *yawn*
+                    </>
+                  ) : (
+                    <>
+                      Hey. I am Karun, a 22 yo software engineer based in India. 
+                      I skipped college to pursue my passion for solving real-world complex 
+                      problems using technology. Most recently, I worked at{" "}
+                      <a 
+                        href="https://www.olakrutrim.com" 
+                        className="text-black hover:text-gray-700 underline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Krutrim
+                      </a>{" "}
+                      as the youngest Principal Engineer. Currently, I am building fleet of AI agents to understand human behavior.
+                    </>
+                  )}
                 </p>
               </div>
             </div>
@@ -219,7 +246,7 @@ export default function Home() {
 
           {/* Experience Section */}
           <section id="experience" className="mt-24">
-            <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">Experience</h3>
+            <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">{texts.experienceTitle}</h3>
             <div className="space-y-12">
               {experiences.map((exp, index) => (
                 <Experience
@@ -236,7 +263,7 @@ export default function Home() {
 
           {/* Projects Section */}
           <section id="projects" className="mt-24">
-            <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">Projects</h3>
+            <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">{texts.projectsTitle}</h3>
             <div className="space-y-12">
               {projects.map((project, index) => (
                 <div key={index} className="pb-12 border-b border-gray-200 last:border-b-0">
@@ -247,7 +274,7 @@ export default function Home() {
                       rel="noopener noreferrer"
                       className="text-black hover:text-gray-700 underline transition-colors duration-200"
                     >
-                      {project.title}
+                        {isCatMode ? `${project.title} - I'm obviously better` : project.title}
                     </a>
                   </h3>
                   <p className="text-xl lg:text-2xl leading-relaxed text-gray-800">
@@ -263,6 +290,7 @@ export default function Home() {
         </div>
       </div>
       <Footer />
+      <FloatingToggle />
     </div>
   );
 }

@@ -1,10 +1,17 @@
+"use client";
+
 import Image from "next/image";
 import ImageCaption from "./ImageCaption";
+import { useMode } from "../contexts/ModeContext";
+import { catModeTexts, humanModeTexts } from "../utils/textTransform";
 
 export default function History() {
+  const { isCatMode } = useMode();
+  const texts = isCatMode ? catModeTexts : humanModeTexts;
+  
   return (
     <section id="history" className="mt-24">
-      <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">History</h3>
+      <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">{texts.historyTitle}</h3>
       <div className="flex flex-col lg:flex-row lg:items-start lg:space-x-12 space-y-8 lg:space-y-0">
         {/* Image section */}
         <div className="w-full lg:w-auto lg:flex-shrink-0 order-1 lg:order-2">
@@ -19,8 +26,8 @@ export default function History() {
               />
             </div>
             <ImageCaption 
-              text="My First Rack Server" 
-              hoverText="I was so obsessed that I turned my hotel room into a makeshift data center. The cleaning staff was very confused the next morning!"
+              text={texts.historyCaption} 
+              hoverText={texts.historyHover}
             />
           </div>
         </div>
@@ -30,8 +37,7 @@ export default function History() {
           <div className="space-y-6">
             <div className="relative group">
               <div className="text-xl lg:text-2xl leading-relaxed text-gray-800">
-                Around 2010, I grew up in my dad&apos;s computer shop - part kid, part repair tech. When I wasn&apos;t doing 12-hour gaming marathons, 
-                I was elbow-deep in hardware: swapping RAM, re-imaging drives, and chasing down why a desktop refused to boot.
+                {texts.historyContent1}
               </div>
               
               {/* Hover popup */}
@@ -51,8 +57,7 @@ export default function History() {
             </div>
             
             <p className="text-xl lg:text-2xl leading-relaxed text-gray-800">
-              Then curiosity kicked in: who actually &ldquo;owns&rdquo; the internet? I grabbed a static IP, ran cables across my room, and hosted my 
-              first website from home. 
+              {texts.historyContent2}
             </p>
           </div>
         </div>

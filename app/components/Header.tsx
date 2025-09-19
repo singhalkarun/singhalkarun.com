@@ -1,6 +1,8 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { useMode } from '../contexts/ModeContext';
+import { catModeTexts, humanModeTexts } from '../utils/textTransform';
 
 interface NavButtonProps {
   sectionId: string;
@@ -31,6 +33,9 @@ function NavButton({ sectionId, label, isActive, size = "lg", onClick }: NavButt
 export default function Header() {
   const [currentPage, setCurrentPage] = useState<"about" | "history" | "interests" | "experience" | "projects" | "connect">("about");
   const [isScrolling, setIsScrolling] = useState(false);
+  const { isCatMode } = useMode();
+  
+  const texts = isCatMode ? catModeTexts : humanModeTexts;
   
   const scrollToSection = (sectionId: string) => {
     // Immediately update the active state when clicked
@@ -54,14 +59,14 @@ export default function Header() {
     }
   };
 
-  const navItems = [
-    { id: 'about', label: 'About' },
-    { id: 'history', label: 'History' },
-    { id: 'interests', label: 'Interests' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'connect', label: 'Connect' }
-  ];
+  const navItems = useMemo(() => [
+    { id: 'about', label: texts.navAbout },
+    { id: 'history', label: texts.navHistory },
+    { id: 'interests', label: texts.navInterests },
+    { id: 'experience', label: texts.navExperience },
+    { id: 'projects', label: texts.navProjects },
+    { id: 'connect', label: texts.navConnect }
+  ], [texts]);
 
   useEffect(() => {
     const handleScroll = () => {

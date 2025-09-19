@@ -1,4 +1,7 @@
+"use client";
+
 import React from 'react';
+import { useMode } from '../contexts/ModeContext';
 
 interface ExperiencePoint {
   text: string;
@@ -17,6 +20,53 @@ interface ExperienceProps {
 }
 
 export default function Experience({ company, designation, duration, companyUrl, points }: ExperienceProps) {
+  const { isCatMode } = useMode();
+  
+  const addCatCommentary = (text: string) => {
+    if (!isCatMode) return text;
+    
+    // Different ways cats express themselves
+    const catExpressions = [
+      // Direct commentary
+      " I supervised from my throne while he did the actual work.",
+      " I could have done this better with my eyes closed.",
+      " I was napping during this - he woke me up with his typing.",
+      " I'm obviously more important than whatever this is.",
+      " I helped by knocking things over - that's how you fix problems.",
+      
+      // Cat actions
+      " *purrs* I was the real project manager.",
+      " *stretches* I provided moral support by purring loudly.",
+      " *yawns* I was being adorable while he struggled.",
+      " *judges* I taught him everything he knows.",
+      " *sits regally* I was the real boss here.",
+      
+      // Cat logic
+      " I could have done this myself but I let him practice.",
+      " I was busy being perfect while he made mistakes.",
+      " I'm the real genius here - he just copies my ideas.",
+      " I supervised from my nap spot - quality control is important.",
+      " I knocked his coffee over during this - he needed a break.",
+      
+      // Cat superiority
+      " I walked across his keyboard to help - cats are very helpful.",
+      " I judged his work from my perch - it was acceptable.",
+      " I provided emotional support by sitting on his lap.",
+      " I was the real architect - he just implemented my vision.",
+      " I'm obviously smarter - I can open doors and he can't.",
+      
+      // Cat dismissiveness
+      " Whatever. I was there.",
+      " Meh. I supervised.",
+      " I guess this was okay.",
+      " I was busy being cute.",
+      " I helped by existing."
+    ];
+    
+    const randomExpression = catExpressions[Math.floor(Math.random() * catExpressions.length)];
+    return text + randomExpression;
+  };
+  
   const renderTextWithLinks = (text: string, links?: Array<{ text: string; url: string }>) => {
     if (!links || links.length === 0) {
       return text;
@@ -51,9 +101,13 @@ export default function Experience({ company, designation, duration, companyUrl,
               )}
             </h3>
             <span className="text-xl font-semibold text-gray-700 hidden sm:inline"> - </span>
-            <p className="text-xl font-semibold text-gray-700">{designation}</p>
+            <p className="text-xl font-semibold text-gray-700">
+              {designation}
+            </p>
           </div>
-          <p className="text-lg text-gray-500 mt-2 sm:mt-0 font-medium">{duration}</p>
+          <p className="text-lg text-gray-500 mt-2 sm:mt-0 font-medium">
+            {duration}
+          </p>
         </div>
       </div>
       
@@ -64,7 +118,7 @@ export default function Experience({ company, designation, duration, companyUrl,
               <div key={index} className="flex items-start">
                 <span className="mr-4 text-xl text-black flex-shrink-0 mt-1">•</span>
                 <p className="text-xl lg:text-2xl leading-relaxed text-gray-800">
-                  {renderTextWithLinks(point.text, point.links)}
+                  {renderTextWithLinks(addCatCommentary(point.text), point.links)}
                 </p>
               </div>
             ))}
