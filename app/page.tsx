@@ -154,7 +154,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <div className="flex-1">
-        <div className="max-w-4xl mx-auto px-6 pb-12 pb-32">
+        <div className="max-w-4xl mx-auto px-6 pb-12 md:pb-32">
           <Header />
 
           {/* Main H1 for SEO */}

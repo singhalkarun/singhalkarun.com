@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import SideDrawer from './SideDrawer';
+import HamburgerButton from './HamburgerButton';
 
 interface NavButtonProps {
   sectionId: string;
@@ -31,6 +33,7 @@ function NavButton({ sectionId, label, isActive, size = "lg", onClick }: NavButt
 export default function Header() {
   const [currentPage, setCurrentPage] = useState<"about" | "history" | "interests" | "experience" | "projects" | "connect">("about");
   const [isScrolling, setIsScrolling] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   
   const scrollToSection = (sectionId: string) => {
     // Immediately update the active state when clicked
@@ -92,50 +95,42 @@ export default function Header() {
   }, [navItems, isScrolling]);
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-gray-200 pt-6 pb-6 mb-12">
-      {/* Desktop Navigation */}
-      <nav className="hidden md:flex justify-center space-x-8 lg:space-x-12">
-        {navItems.map((item) => (
-          <NavButton
-            key={item.id}
-            sectionId={item.id}
-            label={item.label}
-            isActive={currentPage === item.id}
-            onClick={scrollToSection}
-          />
-        ))}
-      </nav>
-
-        {/* Mobile Navigation - 2 Lines */}
-        <nav className="md:hidden">
-          {/* First line: About, History, Interests */}
-          <div className="flex justify-center space-x-6 mb-3">
-            {navItems.slice(0, 3).map((item) => (
-              <NavButton
-                key={item.id}
-                sectionId={item.id}
-                label={item.label}
-                isActive={currentPage === item.id}
-                size="base"
-                onClick={scrollToSection}
-              />
-            ))}
-          </div>
-          
-          {/* Second line: Experience, Projects, Connect */}
-          <div className="flex justify-center space-x-6">
-            {navItems.slice(3).map((item) => (
-              <NavButton
-                key={item.id}
-                sectionId={item.id}
-                label={item.label}
-                isActive={currentPage === item.id}
-                size="base"
-                onClick={scrollToSection}
-              />
-            ))}
-          </div>
+    <>
+      <header className="sticky top-0 z-50 bg-white border-b border-gray-200 pt-6 pb-6 mb-12">
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex justify-center space-x-8 lg:space-x-12">
+          {navItems.map((item) => (
+            <NavButton
+              key={item.id}
+              sectionId={item.id}
+              label={item.label}
+              isActive={currentPage === item.id}
+              onClick={scrollToSection}
+            />
+          ))}
         </nav>
+
+        {/* Mobile Navigation - Hamburger Menu */}
+        <div className="md:hidden flex justify-between items-center px-4">
+          <div className="flex-1" /> {/* Spacer */}
+          <h1 className="text-lg font-semibold text-gray-900">Karun Agarwal</h1>
+          <div className="flex-1 flex justify-end">
+            <HamburgerButton 
+              isOpen={isDrawerOpen} 
+              onClick={() => setIsDrawerOpen(!isDrawerOpen)} 
+            />
+          </div>
+        </div>
       </header>
+
+      {/* Side Drawer */}
+      <SideDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        navItems={navItems}
+        currentPage={currentPage}
+        onNavigate={scrollToSection}
+      />
+    </>
   );
 }
