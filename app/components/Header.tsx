@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import SideDrawer from './SideDrawer';
 import HamburgerButton from './HamburgerButton';
+import ModeToggle from './ModeToggle';
 
 interface NavButtonProps {
   sectionId: string;
@@ -98,17 +99,19 @@ export default function Header() {
     <>
       <header className="sticky top-0 z-50 bg-white border-b border-gray-200 pt-6 pb-6 mb-12">
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex justify-center space-x-8 lg:space-x-12">
-          {navItems.map((item) => (
-            <NavButton
-              key={item.id}
-              sectionId={item.id}
-              label={item.label}
-              isActive={currentPage === item.id}
-              onClick={scrollToSection}
-            />
-          ))}
-        </nav>
+        <div className="hidden md:block">
+          <nav className="flex justify-center space-x-8 lg:space-x-12">
+            {navItems.map((item) => (
+              <NavButton
+                key={item.id}
+                sectionId={item.id}
+                label={item.label}
+                isActive={currentPage === item.id}
+                onClick={scrollToSection}
+              />
+            ))}
+          </nav>
+        </div>
 
         {/* Mobile Navigation - Hamburger Menu */}
         <div className="md:hidden flex justify-between items-center px-4">

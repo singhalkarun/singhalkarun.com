@@ -2,8 +2,12 @@
 
 import { useState } from "react";
 import { submitForm } from "../actions/submitForm";
+import { content } from "../data/content";
+import { useMode } from "../contexts/ModeContext";
 
 export default function Connect() {
+  const { mode } = useMode();
+  const currentContent = content[mode];
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
 
@@ -29,12 +33,12 @@ export default function Connect() {
   return (
     <section id="connect" className="mt-24">
       <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">
-        Connect With Me
+        {currentContent.connect.title}
       </h3>
       
       <div> 
         <p className="text-xl lg:text-2xl leading-relaxed text-gray-800 mb-12">
-          I&apos;d love to hear from thoughtful, curious people. If you&apos;d like to connect, please share a little about yourself:
+          {currentContent.connect.description}
         </p>
 
         
@@ -42,7 +46,7 @@ export default function Connect() {
           {/* Book/Article/Podcast Question */}
           <div>
             <label htmlFor="book" className="block text-lg font-medium text-gray-900 mb-3">
-              What&apos;s one book (or article/podcast) that&apos;s had a big impact on you, and why would you recommend it?
+              {currentContent.connect.bookQuestion}
             </label>
             <textarea
               id="book"
@@ -57,7 +61,7 @@ export default function Connect() {
           {/* Interest Question */}
           <div>
             <label htmlFor="interest" className="block text-lg font-medium text-gray-900 mb-3">
-              What sparked your interest in reaching out to me?
+              {currentContent.connect.interestQuestion}
             </label>
             <textarea
               id="interest"
@@ -112,10 +116,10 @@ export default function Connect() {
               }`}
             >
               {isSubmitting 
-                ? "Carefully passing along your message..." 
+                ? currentContent.connect.submittingText 
                 : message 
                   ? message.text 
-                  : "Leave Me a Note"
+                  : currentContent.connect.submitButton
               }
             </button>
           </div>

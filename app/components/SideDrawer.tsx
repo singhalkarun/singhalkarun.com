@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from 'react';
+import ModeToggle from './ModeToggle';
 
 interface SideDrawerProps {
   isOpen: boolean;
@@ -55,7 +56,7 @@ export default function SideDrawer({ isOpen, onClose, navItems, currentPage, onN
       
       {/* Drawer */}
       <div
-        className={`fixed top-0 right-0 h-full w-80 bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 h-full w-80 bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
         role="dialog"
@@ -68,7 +69,7 @@ export default function SideDrawer({ isOpen, onClose, navItems, currentPage, onN
         </div>
 
         {/* Navigation Items */}
-        <nav className="py-6">
+        <nav className="flex-1 py-6">
           <ul className="space-y-2">
             {navItems.map((item) => (
               <li key={item.id}>
@@ -86,6 +87,11 @@ export default function SideDrawer({ isOpen, onClose, navItems, currentPage, onN
             ))}
           </ul>
         </nav>
+
+        {/* Mode Toggle at Bottom */}
+        <div className="p-6 border-t border-gray-200 flex justify-center">
+          <ModeToggle />
+        </div>
       </div>
     </>
   );
