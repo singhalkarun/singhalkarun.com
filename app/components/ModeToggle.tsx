@@ -4,14 +4,22 @@ import { useMode } from '../contexts/ModeContext';
 
 interface ModeToggleProps {
   className?: string;
+  onToggle?: () => void;
 }
 
-export default function ModeToggle({ className = "" }: ModeToggleProps) {
+export default function ModeToggle({ className = "", onToggle }: ModeToggleProps) {
   const { mode, toggleMode } = useMode();
+
+  const handleToggle = () => {
+    toggleMode();
+    if (onToggle) {
+      onToggle();
+    }
+  };
 
   return (
     <button
-      onClick={toggleMode}
+      onClick={handleToggle}
       className={`relative inline-flex items-center justify-center rounded-full transition-all duration-200 focus:outline-none focus:ring-0 focus:border-0 focus:shadow-none shadow-sm cursor-pointer ${
         mode === 'cat' ? 'bg-orange-400' : 'bg-gray-300'
       } ${

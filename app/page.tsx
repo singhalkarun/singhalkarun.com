@@ -41,7 +41,7 @@ export default function Home() {
 
           {/* About Section */}
           <section id="about" className="mt-16">
-            <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">About</h3>
+            <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">{mode === 'cat' ? 'About My Servant' : 'About'}</h3>
             <div className="flex flex-col lg:flex-row lg:items-start lg:space-x-12 space-y-8 lg:space-y-0">
               {/* Photo section */}
               <div className="w-full lg:w-auto lg:flex-shrink-0">
@@ -65,37 +65,35 @@ export default function Home() {
 
               {/* Bio text section */}
               <div className="flex-1 lg:pt-4">
-                <p className="text-xl lg:text-2xl leading-relaxed text-gray-800">
-                  {mode === 'human' ? (
-                    <>
-                      Hey. I am Karun, a 22 yo software engineer based in India. 
-                      I skipped college to pursue my passion for solving real-world complex 
-                      problems using technology. Most recently, I worked at{" "}
-                      <a 
-                        href="https://www.olakrutrim.com" 
-                        className="text-black hover:text-gray-700 underline"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Krutrim
-                      </a>{" "}
-                      as the youngest Principal Engineer. Currently, I am building fleet of AI agents to understand human behavior.
-                    </>
-                  ) : (
-                    <>
-                      Meow. This is Karun, our 22-year-old human who provides excellent chin scratches and premium wet food. He skipped that thing humans call 'college' to spend more time serving us and occasionally typing on that glowing rectangle. He worked at some place called{" "}
-                      <a 
-                        href="https://www.olakrutrim.com" 
-                        className="text-black hover:text-gray-700 underline"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Krutrim
-                      </a>{" "}
-                      where other humans apparently thought he was important (we already knew this). Currently, he's building AI agents to understand human behavior - we could have told him humans just want treats and naps, but whatever keeps him busy while we rule the house.
-                    </>
-                  )}
-                </p>
+                    <p className="text-xl lg:text-2xl leading-relaxed text-gray-800">
+                      {mode === 'human' ? (
+                        <>
+                          {currentContent.hero.bio.split(' Krutrim ')[0]}{" "}
+                          <a 
+                            href="https://www.olakrutrim.com" 
+                            className="text-black hover:text-gray-700 underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Krutrim
+                          </a>{" "}
+                          {currentContent.hero.bio.split(' Krutrim ')[1]}
+                        </>
+                      ) : (
+                        <>
+                          {currentContent.hero.bio.split(' Krutrim ')[0]}{" "}
+                          <a 
+                            href="https://www.olakrutrim.com" 
+                            className="text-black hover:text-gray-700 underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Krutrim
+                          </a>{" "}
+                          {currentContent.hero.bio.split(' Krutrim ')[1]}
+                        </>
+                      )}
+                    </p>
               </div>
             </div>
           </section>

@@ -39,7 +39,7 @@ export default function Interests() {
                 <p className="text-xl lg:text-2xl leading-relaxed text-gray-800">
                   {index === 1 && mode === 'human' ? (
                     <>
-                      I love Music and been learning to play{" "}
+                      {paragraph.split(' Ukulele ')[0]}{" "}
                       <a 
                         href="https://www.instagram.com/p/DLK1x_ezXn69n8oJT0Ca9edrmcmL-pezSpUmFs0/" 
                         className="text-black hover:text-gray-700 underline"
@@ -48,7 +48,7 @@ export default function Interests() {
                       >
                         Ukulele
                       </a>{" "}
-                      and recently learnt to play Sham, one of my favorite songs
+                      {paragraph.split(' Ukulele ')[1]}
                     </>
                   ) : (
                     paragraph

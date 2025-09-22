@@ -2,6 +2,8 @@
 
 import { useEffect } from 'react';
 import ModeToggle from './ModeToggle';
+import { content } from '../data/content';
+import { useMode } from '../contexts/ModeContext';
 
 interface SideDrawerProps {
   isOpen: boolean;
@@ -12,6 +14,8 @@ interface SideDrawerProps {
 }
 
 export default function SideDrawer({ isOpen, onClose, navItems, currentPage, onNavigate }: SideDrawerProps) {
+  const { mode } = useMode();
+  const currentContent = content[mode];
   // Handle body scroll lock when drawer is open
   useEffect(() => {
     if (isOpen) {
@@ -65,7 +69,7 @@ export default function SideDrawer({ isOpen, onClose, navItems, currentPage, onN
       >
         {/* Header */}
         <div className="p-6 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-900">Menu</h2>
+          <h2 className="text-xl font-semibold text-gray-900">{currentContent.navigation.menuTitle}</h2>
         </div>
 
         {/* Navigation Items */}
@@ -90,7 +94,7 @@ export default function SideDrawer({ isOpen, onClose, navItems, currentPage, onN
 
         {/* Mode Toggle at Bottom */}
         <div className="p-6 border-t border-gray-200 flex justify-center">
-          <ModeToggle />
+          <ModeToggle onToggle={onClose} />
         </div>
       </div>
     </>

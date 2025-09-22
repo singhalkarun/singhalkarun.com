@@ -54,7 +54,7 @@ export default function Connect() {
               required
               rows={4}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-0 focus:outline-none focus:ring-gray-900 focus:border-gray-900 text-lg"
-              placeholder="e.g., Man’s Search for Meaning — helped me rethink resilience and purpose"
+              placeholder={currentContent.connect.bookPlaceholder}
             />
           </div>
 
@@ -69,14 +69,14 @@ export default function Connect() {
               required
               rows={4}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-0 focus:outline-none focus:ring-gray-900 focus:border-gray-900 text-lg"
-              placeholder="e.g., I&apos;m exploring how technology shapes human behavior, and I&apos;d love to exchange ideas"
+              placeholder={currentContent.connect.interestPlaceholder}
             />
           </div>
 
           {/* Email */}
           <div>
             <label htmlFor="email" className="block text-lg font-medium text-gray-900 mb-3">
-              Your email
+              {currentContent.connect.emailLabel}
             </label>
             <input
               type="email"
@@ -84,21 +84,21 @@ export default function Connect() {
               name="email"
               required
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-0 focus:outline-none focus:ring-gray-900 focus:border-gray-900 text-lg"
-              placeholder="curious@example.com"
+              placeholder={currentContent.connect.emailPlaceholder}
             />
           </div>
 
           {/* Phone (Optional) */}
           <div>
             <label htmlFor="phone" className="block text-lg font-medium text-gray-900 mb-3">
-              Your phone <span className="text-gray-500 font-normal">(optional)</span>
+              {currentContent.connect.phoneLabel}
             </label>
             <input
               type="tel"
               id="phone"
               name="phone"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-0 focus:outline-none focus:ring-gray-900 focus:border-gray-900 text-lg"
-              placeholder="+1 (555) 123-4567"
+              placeholder={currentContent.connect.phonePlaceholder}
             />
           </div>
 

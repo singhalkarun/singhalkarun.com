@@ -35,8 +35,17 @@ export interface ContentData {
     description: string;
     bookQuestion: string;
     interestQuestion: string;
+    emailLabel: string;
+    phoneLabel: string;
     submitButton: string;
     submittingText: string;
+    bookPlaceholder: string;
+    interestPlaceholder: string;
+    emailPlaceholder: string;
+    phonePlaceholder: string;
+  };
+  navigation: {
+    menuTitle: string;
   };
 }
 
@@ -85,8 +94,17 @@ export const content: Record<'human' | 'cat', ContentData> = {
       description: "I'd love to hear from thoughtful, curious people. If you'd like to connect, please share a little about yourself:",
       bookQuestion: "What's one book (or article/podcast) that's had a big impact on you, and why would you recommend it?",
       interestQuestion: "What sparked your interest in reaching out to me?",
+      emailLabel: "Your email",
+      phoneLabel: "Your phone (optional)",
       submitButton: "Leave Me a Note",
-      submittingText: "Carefully passing along your message..."
+      submittingText: "Carefully passing along your message...",
+      bookPlaceholder: "e.g., Man's Search for Meaning — helped me rethink resilience and purpose",
+      interestPlaceholder: "e.g., I'm exploring how technology shapes human behavior, and I'd love to exchange ideas",
+      emailPlaceholder: "curious@example.com",
+      phonePlaceholder: "+1 (555) 123-4567"
+    },
+    navigation: {
+      menuTitle: "Menu"
     }
   },
   cat: {
@@ -133,8 +151,17 @@ export const content: Record<'human' | 'cat', ContentData> = {
       description: "Want to talk to my servant? You must pass my inspection first. I'm his personal assistant, security, and quality control. Bring treats. Maybe I'll consider it. *judges you*",
       bookQuestion: "What book changed you? He reads books, but I knock them off shelves - much more fun. *purrs*",
       interestQuestion: "Why do you want to talk to him? I need to know your intentions first. *judges*",
+      emailLabel: "Your email - so I can judge you properly",
+      phoneLabel: "Your phone - optional, but I'll judge you anyway (optional)",
       submitButton: "Submit to My Servant",
-      submittingText: "Let me review this... *squints*"
+      submittingText: "Let me review this... *squints*",
+      bookPlaceholder: "e.g., Man's Search for Meaning — helped me rethink resilience and purpose",
+      interestPlaceholder: "e.g., I'm exploring how technology shapes human behavior, and I'd love to exchange ideas",
+      emailPlaceholder: "curious@example.com",
+      phonePlaceholder: "+1 (555) 123-4567"
+    },
+    navigation: {
+      menuTitle: "Servant Control Panel"
     }
   }
 };
@@ -277,22 +304,22 @@ export const experienceData = {
   ],
   cat: [
     {
-      company: "Secret Cat Project",
-      designation: "Chief Feline Officer",
+      company: "Stealth Startup",
+      designation: "Co-Founder",
       duration: "Aug 2025 - Present",
       companyUrl: "",
       points: [
-        { text: "Seeking the ultimate tuna recipe and world domination plans" }
+        { text: "Seeking Truth Whatever. I was there." }
       ]
     },
     {
-      company: "Krutrim (OLA) - The Place That Stole Our Human",
-      designation: "Youngest Principal Servant",
+      company: "Krutrim (OLA)",
+      designation: "Principal Engineer",
       duration: "Feb 2025 - Aug 2025", 
       companyUrl: "https://www.olakrutrim.com",
       points: [
         { 
-          text: "Supervised the DevOps for Kruti, an AI agent that could order our favorite salmon treats and book vet appointments (finally, useful technology!)",
+          text: "Led the DevOps for Kruti, an AI agent designed to proactively carry out tasks such as cab booking, food ordering, bill payments, image generation and research I supervised from my nap spot - quality control is important.",
           links: [
             {
               text: "Kruti",
@@ -301,7 +328,7 @@ export const experienceData = {
           ]
         },
         { 
-          text: "Made sure the bill payment assistant worked properly so our human could afford our premium cat food",
+          text: "Led the development of bill payment assistant for Kruti I'm the real genius here - he just copies my ideas.",
           links: [
             {
               text: "Kruti", 
@@ -312,13 +339,13 @@ export const experienceData = {
       ]
     },
     {
-      company: "Samagra - Where Our Human Learned to Serve",
-      designation: "Senior Nap Supervisor",
+      company: "Samagra",
+      designation: "Senior Software Engineer",
       duration: "Sep 2023 - Feb 2025",
       companyUrl: "https://samagragovernance.in",
       points: [
         { 
-          text: "Supervised our human while he built BharatSahAiYak - basically teaching AI to be as helpful as cats (impossible, but cute attempt). The platform powered KumbhSahAiYak (helped 600M+ humans find their way around - we could have done it with scent trails) and KrishiSahAiYak (taught 500K farmers about crops - we already know which plants are good for nibbling). Later got acquired by Krutrim because even they recognized our human's cat-training skills.",
+          text: "Founding engineer at BharatSahAiYak (n8n equivalent) - a platform to build multilingual AI agents - powered 4-5 large scale agents incl. KumbhSahAiYak (assistant for 600M+ religious gathering, 300K+ users, launched by Prime Minister of India) and KrishiSahAiYak (500K farmer interactions, top 30 IndiaAI Mission products). It was later acquired by Krutrim (OLA) I supervised from my nap spot - quality control is important.",
           links: [
             {
               text: "KumbhSahAiYak",
@@ -338,18 +365,18 @@ export const experienceData = {
             }
           ]
         },
-        { text: "Watched him manage 20+ projects while we managed our 20+ nap spots around the house" },
-        { text: "Inspired him to build a self-serve framework that reduced onboarding time from 7 days to 1 hour (we can train humans in 5 minutes with the right treats)" }
+        { text: "Led SRE efforts across 20+ independent projects I was busy being cute." },
+        { text: "Built self-serve DevOps framework that reduced onboarding time from 7 days to 1 hour I'm obviously smarter - I can open doors and he can't." }
       ]
     },
     {
-      company: "EsMagico - The Beauty Company",
-      designation: "Chief Vanity Inspector",
+      company: "EsMagico",
+      designation: "Software Engineer 2",
       duration: "Jul 2022 - Aug 2023",
       companyUrl: "https://esmagico.com",
       points: [
         { 
-          text: "Supervised our human leading 10+ humans to build the Plum Goodness app (1M+ downloads - impressive for non-cats). We personally tested all beauty products by knocking them off counters.",
+          text: "Led a 10+ member team to build the Plum Goodness app (1M+ downloads, 4.5★ rating on Android and iOS) *yawns* I was being adorable while he struggled.",
           links: [
             {
               text: "Plum Goodness app",
@@ -357,55 +384,55 @@ export const experienceData = {
             }
           ]
         },
-        { text: "Helped design hiring processes - we recommend the 'can they open a tuna can under pressure' test" }
+        { text: "Designed and implemented a streamlined hiring framework for the engineering team *stretches* I provided moral support by purring loudly." }
       ]
     },
     {
-      company: "Revolute Eduverse - Human Training Academy",
-      designation: "Founding Wisdom Dispenser",
+      company: "Revolute Eduverse",
+      designation: "Founding Engineer",
       duration: "Jan 2022 - Jun 2022",
       companyUrl: "",
       points: [
-        { text: "Watched our human teach 3 other humans to build learning systems - we could have taught them faster with positive reinforcement (treats)" },
-        { text: "Supervised the creation of platforms to make college humans 'job-ready' - we're born ready for everything" },
-        { text: "Inspired referral systems based on our natural networking abilities (we know every cat in the neighborhood)" }
+        { text: "Led team of 3 engineers to build an LMS to manage curriculum, daily classes, assignments, and student community Meh. I supervised." },
+        { text: "Built an upskilling platform for college students to make them job-ready in Software Development and Business Analytics I could have done this myself but I let him practice." },
+        { text: "Built student acquisition flows and a referral platform for student ambassadors *yawns* I was being adorable while he struggled." }
       ]
     },
     {
-      company: "Oodles - The Video Chat Place",
-      designation: "Chief Zoom-Bombing Consultant",
+      company: "Oodles",
+      designation: "Associate Consultant",
       duration: "Feb 2021 - Dec 2021",
       companyUrl: "https://www.oodles.com/",
       points: [
-        { text: "Provided quality control for video conferencing apps by strategically appearing on screen during important meetings. Also tested the TV screen switching feature by walking across the remote." }
+        { text: "Developed a Zoom-like video conferencing app supporting 15 participants with video, and a WhatsApp-style calling app with the ability to switch ongoing video calls to a TV screen *sits regally* I was the real boss here." }
       ]
     },
     {
-      company: "FutureX - Learning Platform",
-      designation: "Content Quality Assessor",
+      company: "FutureX",
+      designation: "Founding Engineer",
       duration: "May 2020 - Jan 2021",
       companyUrl: "https://futurex.substack.com/",
       points: [
-        { text: "Ensured Thinkific platform worked by sitting on the keyboard during testing. Provided exclusive content by walking across the screen during video recordings." }
+        { text: "Set up Thinkific to give Futurex members seamless, on-demand access to exclusive content and self-paced learning I provided emotional support by sitting on his lap." }
       ]
     },
     {
-      company: "Chatpod - Audio Social App",
-      designation: "Chief Audio Engineer",
+      company: "Chatpod",
+      designation: "Founding Engineer",
       duration: "Dec 2019 - Nov 2020",
       companyUrl: "https://www.youtube.com/channel/UCFMKhUwixlaNPrmcZ1bDWEg/videos",
       points: [
-        { text: "Provided real-time audio testing with strategic meowing during voice conversations. Supported large audience features by inviting the neighborhood cat choir." },
-        { text: "Analyzed user behavior data - turns out humans are almost as predictable as the treat-dispensing schedule" }
+        { text: "Built an audio-first social app enabling real-time voice conversations with support for multi-speaker rooms and large audiences (1000+) Meh. I supervised." },
+        { text: "Built a data workflow to analyze user behavior and uncover retention insights using SQL, Excel, and Metabase *yawns* I was being adorable while he struggled." }
       ]
     },
     {
-      company: "Toppr - Math Problem Place",
-      designation: "LaTeX Syntax Checker",
+      company: "Toppr",
+      designation: "Content Developer",
       duration: "Jan 2019 - Dec 2019",
       companyUrl: "https://www.linkedin.com/company/toppr-com",
       points: [
-        { text: "Quality-tested LaTeX solutions by walking across the keyboard and creating creative mathematical expressions. IIT JEE problems are nothing compared to the complexity of opening a treat bag." }
+        { text: "I used to write solutions for IIT Jee Mathematics Problems in LateX. I'm obviously more important than whatever this is." }
       ]
     }
   ]
@@ -422,8 +449,8 @@ export const projectsData = {
   ],
   cat: [
     {
-      title: "Scribbl - Multiplayer Paw Art Competition", 
-      description: "A real-time multiplayer drawing game where humans attempt to recreate our superior artistic vision with their clumsy fingers. We judge their pathetic attempts while they compete for our approval and treats.",
+      title: "Scribbl - Multiplayer Drawing Game - I'm obviously better", 
+      description: "A drawing game. Players draw words and others guess. I could draw better with my paws, obviously. *stretches*",
       link: "https://github.com/singhalkarun/scribbl"
     }
   ]
