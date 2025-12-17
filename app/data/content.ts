@@ -288,8 +288,7 @@ export const experienceData = {
       duration: "Dec 2019 - Nov 2020",
       companyUrl: "https://www.youtube.com/channel/UCFMKhUwixlaNPrmcZ1bDWEg/videos",
       points: [
-        { text: "Built an audio-first social app enabling real-time voice conversations with support for multi-speaker rooms and large audiences (1000+)" },
-        { text: "Built a data workflow to analyze user behavior and uncover retention insights using SQL, Excel, and Metabase" }
+        { text: "Built a data workflow (for audio-first social app, multi-speaker rooms and large audiences - 1000+) to analyze user behavior and uncover retention insights using SQL, Excel, and Metabase" }
       ]
     },
     {
@@ -422,8 +421,7 @@ export const experienceData = {
       duration: "Dec 2019 - Nov 2020",
       companyUrl: "https://www.youtube.com/channel/UCFMKhUwixlaNPrmcZ1bDWEg/videos",
       points: [
-        { text: "Built an audio-first social app enabling real-time voice conversations with support for multi-speaker rooms and large audiences (1000+) Meh. I supervised." },
-        { text: "Built a data workflow to analyze user behavior and uncover retention insights using SQL, Excel, and Metabase *yawns* I was being adorable while he struggled." }
+        { text: "Built a data workflow (for audio-first social app, multi-speaker rooms and large audiences - 1000+) to analyze user behavior and uncover retention insights using SQL, Excel, and Metabase *yawns* I was being adorable while he struggled." }
       ]
     },
     {
