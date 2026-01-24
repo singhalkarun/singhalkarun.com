@@ -89,45 +89,137 @@ export const BASE_FREQUENCIES: { label: string; value: number }[] = [
 
 export const DEFAULT_BASE_FREQUENCY = 261.63; // C4
 
-// Play a note with smooth attack/release
+// Harmonic structure for tanpura-like sound
+// Each harmonic: [frequency multiplier, amplitude, detune in cents]
+const HARMONICS = [
+  [1, 0.5, 0],        // Fundamental
+  [1, 0.25, 3],       // Slightly detuned fundamental (creates beating)
+  [1, 0.25, -3],      // Slightly detuned other way
+  [2, 0.3, 0],        // 2nd harmonic (octave)
+  [2, 0.1, 5],        // Detuned octave
+  [3, 0.15, 0],       // 3rd harmonic
+  [4, 0.1, 0],        // 4th harmonic
+  [5, 0.05, 0],       // 5th harmonic
+  [6, 0.03, 0],       // 6th harmonic
+];
+
+// Voice/instrument node with all oscillators and nodes
+export interface VoiceNode {
+  oscillators: OscillatorNode[];
+  gainNodes: GainNode[];
+  masterGain: GainNode;
+  vibratoLFO: OscillatorNode;
+  vibratoGain: GainNode;
+  filter: BiquadFilterNode;
+}
+
+// Play a note with rich harmonic content (tanpura-like)
 export function playNote(
   ctx: AudioContext,
   frequency: number
-): OscillatorNode {
-  const oscillator = ctx.createOscillator();
-  const gainNode = ctx.createGain();
+): VoiceNode {
+  const oscillators: OscillatorNode[] = [];
+  const gainNodes: GainNode[] = [];
 
-  oscillator.type = 'sine';
-  oscillator.frequency.setValueAtTime(frequency, ctx.currentTime);
+  // Master gain for overall volume control and envelope
+  const masterGain = ctx.createGain();
+  masterGain.gain.setValueAtTime(0, ctx.currentTime);
 
-  // Smooth attack
-  gainNode.gain.setValueAtTime(0, ctx.currentTime);
-  gainNode.gain.linearRampToValueAtTime(0.3, ctx.currentTime + 0.05);
+  // Low-pass filter to warm up the sound
+  const filter = ctx.createBiquadFilter();
+  filter.type = 'lowpass';
+  filter.frequency.setValueAtTime(frequency * 8, ctx.currentTime); // Cut high frequencies
+  filter.Q.setValueAtTime(0.5, ctx.currentTime);
 
-  oscillator.connect(gainNode);
-  gainNode.connect(ctx.destination);
-  oscillator.start();
+  // Vibrato LFO (subtle pitch modulation)
+  const vibratoLFO = ctx.createOscillator();
+  const vibratoGain = ctx.createGain();
+  vibratoLFO.type = 'sine';
+  vibratoLFO.frequency.setValueAtTime(5, ctx.currentTime); // 5 Hz vibrato rate
+  vibratoGain.gain.setValueAtTime(2, ctx.currentTime); // 2 cents depth (subtle)
+  vibratoLFO.connect(vibratoGain);
+  vibratoLFO.start();
 
-  // Store gainNode reference for smooth release
-  (oscillator as OscillatorNode & { _gainNode?: GainNode })._gainNode = gainNode;
+  // Create oscillators for each harmonic
+  HARMONICS.forEach(([multiplier, amplitude, detune]) => {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
 
-  return oscillator;
+    // Use different waveforms for different harmonics
+    if (multiplier === 1) {
+      osc.type = 'sine'; // Pure fundamental
+    } else if (multiplier <= 3) {
+      osc.type = 'triangle'; // Soft harmonics
+    } else {
+      osc.type = 'sine'; // Higher harmonics as sine
+    }
+
+    osc.frequency.setValueAtTime(frequency * (multiplier as number), ctx.currentTime);
+    osc.detune.setValueAtTime(detune as number, ctx.currentTime);
+
+    // Connect vibrato to fundamental oscillators only
+    if (multiplier === 1) {
+      vibratoGain.connect(osc.detune);
+    }
+
+    gain.gain.setValueAtTime(amplitude as number, ctx.currentTime);
+
+    osc.connect(gain);
+    gain.connect(filter);
+
+    oscillators.push(osc);
+    gainNodes.push(gain);
+
+    osc.start();
+  });
+
+  // Connect filter -> master gain -> destination
+  filter.connect(masterGain);
+  masterGain.connect(ctx.destination);
+
+  // ADSR Envelope - Attack
+  const attackTime = 0.08;
+  const peakLevel = 0.25;
+  const sustainLevel = 0.2;
+
+  masterGain.gain.linearRampToValueAtTime(peakLevel, ctx.currentTime + attackTime);
+  // Decay to sustain
+  masterGain.gain.linearRampToValueAtTime(sustainLevel, ctx.currentTime + attackTime + 0.1);
+
+  return {
+    oscillators,
+    gainNodes,
+    masterGain,
+    vibratoLFO,
+    vibratoGain,
+    filter,
+  };
 }
 
 // Stop a note with smooth fade out
-export function stopNote(oscillator: OscillatorNode, ctx: AudioContext): void {
-  const gainNode = (oscillator as OscillatorNode & { _gainNode?: GainNode })._gainNode;
-  if (gainNode) {
-    gainNode.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.1);
-    setTimeout(() => {
-      oscillator.stop();
-      oscillator.disconnect();
-      gainNode.disconnect();
-    }, 150);
-  } else {
-    oscillator.stop();
-    oscillator.disconnect();
-  }
+export function stopNote(voice: VoiceNode, ctx: AudioContext): void {
+  const releaseTime = 0.15;
+
+  // Fade out master gain
+  voice.masterGain.gain.cancelScheduledValues(ctx.currentTime);
+  voice.masterGain.gain.setValueAtTime(voice.masterGain.gain.value, ctx.currentTime);
+  voice.masterGain.gain.linearRampToValueAtTime(0, ctx.currentTime + releaseTime);
+
+  // Stop and disconnect after release
+  setTimeout(() => {
+    voice.vibratoLFO.stop();
+    voice.vibratoLFO.disconnect();
+    voice.vibratoGain.disconnect();
+
+    voice.oscillators.forEach((osc, i) => {
+      osc.stop();
+      osc.disconnect();
+      voice.gainNodes[i].disconnect();
+    });
+
+    voice.filter.disconnect();
+    voice.masterGain.disconnect();
+  }, releaseTime * 1000 + 50);
 }
 
 // Get the frequency for a specific note given a base Sa frequency

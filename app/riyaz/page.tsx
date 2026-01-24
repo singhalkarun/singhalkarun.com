@@ -14,6 +14,7 @@ import {
   getNoteFrequency,
   type KeyMapping,
   type SargamNote,
+  type VoiceNode,
 } from '@/app/components/riyaz/AudioEngine';
 
 type Mode = 'manual' | 'practice';
@@ -29,7 +30,7 @@ export default function RiyazPage() {
   const [showSettings, setShowSettings] = useState(false);
 
   const audioContextRef = useRef<AudioContext | null>(null);
-  const oscillatorRef = useRef<OscillatorNode | null>(null);
+  const voiceRef = useRef<VoiceNode | null>(null);
   const activeKeysRef = useRef<Set<string>>(new Set());
   const playbackRef = useRef<{ timeoutId: NodeJS.Timeout | null; noteIndex: number }>({
     timeoutId: null,
@@ -61,11 +62,11 @@ export default function RiyazPage() {
     return audioContextRef.current;
   }, []);
 
-  // Stop current oscillator
+  // Stop current voice
   const stopCurrentNote = useCallback(() => {
-    if (oscillatorRef.current && audioContextRef.current) {
-      stopNote(oscillatorRef.current, audioContextRef.current);
-      oscillatorRef.current = null;
+    if (voiceRef.current && audioContextRef.current) {
+      stopNote(voiceRef.current, audioContextRef.current);
+      voiceRef.current = null;
       setActiveNote(null);
     }
   }, []);
@@ -79,7 +80,7 @@ export default function RiyazPage() {
       stopCurrentNote();
 
       const frequency = getNoteFrequency(note, baseFrequency);
-      oscillatorRef.current = playNote(ctx, frequency);
+      voiceRef.current = playNote(ctx, frequency);
       setActiveNote(note);
     },
     [ensureAudioContext, baseFrequency, stopCurrentNote]
@@ -127,9 +128,9 @@ export default function RiyazPage() {
         playbackRef.current.noteIndex = 0;
         setIsPlaying(false);
 
-        if (oscillatorRef.current && audioContextRef.current) {
-          stopNote(oscillatorRef.current, audioContextRef.current);
-          oscillatorRef.current = null;
+        if (voiceRef.current && audioContextRef.current) {
+          stopNote(voiceRef.current, audioContextRef.current);
+          voiceRef.current = null;
           setActiveNote(null);
         }
         return;
@@ -137,12 +138,12 @@ export default function RiyazPage() {
 
       const note = pattern.notes[index];
 
-      if (oscillatorRef.current && audioContextRef.current) {
-        stopNote(oscillatorRef.current, audioContextRef.current);
+      if (voiceRef.current && audioContextRef.current) {
+        stopNote(voiceRef.current, audioContextRef.current);
       }
 
       const frequency = getNoteFrequency(note, baseFrequency);
-      oscillatorRef.current = playNote(ctx, frequency);
+      voiceRef.current = playNote(ctx, frequency);
       setActiveNote(note);
 
       playbackRef.current.noteIndex = index;
