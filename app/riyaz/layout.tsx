@@ -21,12 +21,12 @@ export const metadata: Metadata = {
     description:
       'Practice Indian classical music sargam with an interactive keyboard. Learn alankars and improve your riyaz.',
     type: 'website',
-    url: 'https://singhalkarun.com/riyaz',
+    url: 'https://www.singhalkarun.com/riyaz',
     images: [
       {
-        url: '/riyaz.jpeg',
-        width: 1200,
-        height: 630,
+        url: 'https://www.singhalkarun.com/riyaz.jpeg',
+        width: 2282,
+        height: 1520,
         alt: 'Riyaz - Sargam Practice Tool',
       },
     ],
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     description:
       'Practice Indian classical music sargam with an interactive keyboard. Learn alankars and improve your riyaz.',
     creator: '@singhalkarun',
-    images: ['/riyaz.jpeg'],
+    images: ['https://www.singhalkarun.com/riyaz.jpeg'],
   },
 };
 
