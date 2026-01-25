@@ -15,6 +15,7 @@ import {
   type KeyMapping,
   type SargamNote,
   type VoiceNode,
+  type NoteDisplayMode,
 } from '@/app/components/riyaz/AudioEngine';
 
 type Mode = 'manual' | 'practice';
@@ -27,6 +28,7 @@ export default function RiyazPage() {
   const [speedIndex, setSpeedIndex] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [keyMapping, setKeyMapping] = useState<KeyMapping>('sargam');
+  const [noteDisplayMode, setNoteDisplayMode] = useState<NoteDisplayMode>('sargam');
   const [showSettings, setShowSettings] = useState(false);
 
   const audioContextRef = useRef<AudioContext | null>(null);
@@ -334,6 +336,40 @@ export default function RiyazPage() {
                     ))}
                   </div>
                 </div>
+
+                <div className="border-t border-gray-200 px-3 py-2">
+                  <p className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
+                    Note Display
+                  </p>
+                  <div className="space-y-1">
+                    <button
+                      onClick={() => {
+                        setNoteDisplayMode('sargam');
+                        setShowSettings(false);
+                      }}
+                      className={`w-full text-left px-3 py-2 rounded-md text-sm transition-all cursor-pointer ${
+                        noteDisplayMode === 'sargam'
+                          ? 'bg-gray-900 text-white'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      Sargam (Sa Re Ga Ma...)
+                    </button>
+                    <button
+                      onClick={() => {
+                        setNoteDisplayMode('western');
+                        setShowSettings(false);
+                      }}
+                      className={`w-full text-left px-3 py-2 rounded-md text-sm transition-all cursor-pointer ${
+                        noteDisplayMode === 'western'
+                          ? 'bg-gray-900 text-white'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      Western (C D E F...)
+                    </button>
+                  </div>
+                </div>
               </div>
             )}
           </div>
@@ -452,12 +488,13 @@ export default function RiyazPage() {
             }}
             onNoteEnd={handleNoteEnd}
             keyLabels={currentMapping.display}
+            noteDisplayMode={noteDisplayMode}
           />
         </div>
 
         {/* Sargam timeline */}
         <div className="mb-8">
-          <SargamTimeline activeNote={activeNote} />
+          <SargamTimeline activeNote={activeNote} noteDisplayMode={noteDisplayMode} />
         </div>
 
         {/* Instructions */}

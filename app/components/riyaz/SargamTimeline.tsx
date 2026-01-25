@@ -1,10 +1,11 @@
 'use client';
 
 import { useEffect, useRef, useCallback } from 'react';
-import { SARGAM_NOTES, type SargamNote } from './AudioEngine';
+import { SARGAM_NOTES, SARGAM_TO_WESTERN, type SargamNote, type NoteDisplayMode } from './AudioEngine';
 
 interface SargamTimelineProps {
   activeNote: SargamNote | null;
+  noteDisplayMode?: NoteDisplayMode;
 }
 
 interface NoteBlock {
@@ -28,6 +29,7 @@ const NOTE_COLORS: Record<SargamNote, string> = {
 
 export default function SargamTimeline({
   activeNote,
+  noteDisplayMode = 'sargam',
 }: SargamTimelineProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const noteBlocksRef = useRef<NoteBlock[]>([]);
@@ -110,7 +112,8 @@ export default function SargamTimeline({
       ctx.font = '12px system-ui, sans-serif';
       ctx.textAlign = 'right';
       ctx.textBaseline = 'middle';
-      ctx.fillText(note, padding - 8, y + laneHeight / 2);
+      const noteName = noteDisplayMode === 'western' ? SARGAM_TO_WESTERN[note] : note;
+      ctx.fillText(noteName, padding - 8, y + laneHeight / 2);
     });
 
     // Draw vertical time line (current position)
@@ -159,7 +162,7 @@ export default function SargamTimeline({
     ctx.fillText('now', currentX, height - 4);
 
     animationRef.current = requestAnimationFrame(draw);
-  }, []);
+  }, [noteDisplayMode]);
 
   useEffect(() => {
     animationRef.current = requestAnimationFrame(draw);

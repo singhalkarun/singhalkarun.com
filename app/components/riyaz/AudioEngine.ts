@@ -13,6 +13,27 @@ export const SARGAM_RATIOS: Record<string, number> = {
 export const SARGAM_NOTES = ['Sa', 'Re', 'Ga', 'Ma', 'Pa', 'Dha', 'Ni', "Sa'"] as const;
 export type SargamNote = (typeof SARGAM_NOTES)[number];
 
+// Western note names mapping
+export const SARGAM_TO_WESTERN: Record<SargamNote, string> = {
+  Sa: 'C',
+  Re: 'D',
+  Ga: 'E',
+  Ma: 'F',
+  Pa: 'G',
+  Dha: 'A',
+  Ni: 'B',
+  "Sa'": 'C',
+};
+
+export type NoteDisplayMode = 'sargam' | 'western';
+
+export function getNoteName(note: SargamNote, mode: NoteDisplayMode): string {
+  if (mode === 'western') {
+    return SARGAM_TO_WESTERN[note];
+  }
+  return note;
+}
+
 // Key mappings
 export type KeyMapping = 'sargam' | 'homerow';
 

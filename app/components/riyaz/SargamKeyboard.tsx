@@ -1,12 +1,13 @@
 'use client';
 
-import { SARGAM_NOTES, type SargamNote } from './AudioEngine';
+import { SARGAM_NOTES, SARGAM_TO_WESTERN, type SargamNote, type NoteDisplayMode } from './AudioEngine';
 
 interface SargamKeyboardProps {
   activeNote: SargamNote | null;
   onNoteStart: (note: SargamNote) => void;
   onNoteEnd: (note: SargamNote) => void;
   keyLabels: Record<SargamNote, string>;
+  noteDisplayMode?: NoteDisplayMode;
   disabled?: boolean;
 }
 
@@ -15,6 +16,7 @@ export default function SargamKeyboard({
   onNoteStart,
   onNoteEnd,
   keyLabels,
+  noteDisplayMode = 'sargam',
   disabled = false,
 }: SargamKeyboardProps) {
   return (
@@ -48,7 +50,9 @@ export default function SargamKeyboard({
               ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
             `}
           >
-            <span className="text-lg font-medium">{note}</span>
+            <span className="text-lg font-medium">
+              {noteDisplayMode === 'western' ? SARGAM_TO_WESTERN[note] : note}
+            </span>
             <span className={`text-xs ${isActive ? 'text-gray-300' : 'text-gray-400'}`}>
               {keyLabels[note]}
             </span>
