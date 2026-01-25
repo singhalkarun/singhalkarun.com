@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ModeProvider } from "./contexts/ModeContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -82,7 +83,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="theme-color" content="#000000" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -90,7 +91,29 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Karun Agarwal" />
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
-        
+
+        {/* Riyaz theme initialization - prevents FOUC */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('riyaz-theme');
+                  if (!theme) return; // Only apply if riyaz theme is set
+                  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  var root = document.documentElement;
+                  var resolvedTheme = theme === 'dark' || (theme === 'system' && prefersDark)
+                    ? 'dark'
+                    : 'light';
+                  root.classList.remove('light', 'dark');
+                  root.classList.add(resolvedTheme);
+                  root.setAttribute('data-riyaz-theme', resolvedTheme);
+                } catch (e) {}
+              })();
+            `
+          }}
+        />
+
         {/* Google Analytics */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7QPPZJN9Z"></script>
         <script

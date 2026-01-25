@@ -44,8 +44,8 @@ export default function SargamKeyboard({
               select-none touch-none
               ${
                 isActive
-                  ? 'bg-gray-900 text-white border-gray-900'
-                  : 'bg-white text-gray-900 border-gray-300 hover:border-gray-400'
+                  ? 'bg-gray-900 dark:bg-[#e5e5e5] text-white dark:text-[#1a1a1a] border-gray-900 dark:border-[#e5e5e5]'
+                  : 'bg-white dark:bg-[#262626] text-gray-900 dark:text-[#e5e5e5] border-gray-300 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-600'
               }
               ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
             `}
@@ -53,7 +53,7 @@ export default function SargamKeyboard({
             <span className="text-lg font-medium">
               {noteDisplayMode === 'western' ? SARGAM_TO_WESTERN[note] : note}
             </span>
-            <span className={`text-xs ${isActive ? 'text-gray-300' : 'text-gray-400'}`}>
+            <span className={`text-xs ${isActive ? 'text-gray-300 dark:text-[#737373]' : 'text-gray-400 dark:text-gray-500'}`}>
               {keyLabels[note]}
             </span>
           </button>

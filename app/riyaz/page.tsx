@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import SargamKeyboard from '@/app/components/riyaz/SargamKeyboard';
 import SargamTimeline from '@/app/components/riyaz/SargamTimeline';
+import { useRiyazTheme } from '@/app/contexts/RiyazThemeContext';
 import {
   BASE_FREQUENCIES,
   DEFAULT_BASE_FREQUENCY,
@@ -21,6 +22,7 @@ import {
 type Mode = 'manual' | 'practice';
 
 export default function RiyazPage() {
+  const { theme, setTheme } = useRiyazTheme();
   const [baseFrequency, setBaseFrequency] = useState(DEFAULT_BASE_FREQUENCY);
   const [activeNote, setActiveNote] = useState<SargamNote | null>(null);
   const [mode, setMode] = useState<Mode>('manual');
@@ -252,18 +254,18 @@ export default function RiyazPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-white dark:bg-[#1a1a1a] flex flex-col transition-colors">
       {/* Header */}
       <header className="flex items-center justify-between px-6 py-4 max-w-2xl mx-auto w-full">
-        <h1 className="text-2xl font-bold">Riyaz</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-[#e5e5e5]">Riyaz</h1>
         <div className="flex items-center gap-3">
-          <div className="inline-flex rounded-lg border border-gray-200 p-1">
+          <div className="inline-flex rounded-lg border border-gray-200 dark:border-gray-700 p-1 bg-white dark:bg-[#262626]">
             <button
               onClick={() => handleModeChange('manual')}
               className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all cursor-pointer ${
                 mode === 'manual'
-                  ? 'bg-gray-900 text-white'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'bg-gray-900 dark:bg-[#e5e5e5] text-white dark:text-[#1a1a1a]'
+                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-[#e5e5e5]'
               }`}
             >
               Manual
@@ -272,8 +274,8 @@ export default function RiyazPage() {
               onClick={() => handleModeChange('practice')}
               className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all cursor-pointer ${
                 mode === 'practice'
-                  ? 'bg-gray-900 text-white'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'bg-gray-900 dark:bg-[#e5e5e5] text-white dark:text-[#1a1a1a]'
+                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-[#e5e5e5]'
               }`}
             >
               Practice
@@ -285,12 +287,14 @@ export default function RiyazPage() {
             <button
               onClick={() => setShowSettings(!showSettings)}
               className={`p-2 rounded-lg transition-all cursor-pointer ${
-                showSettings ? 'bg-gray-100' : 'hover:bg-gray-100'
+                showSettings
+                  ? 'bg-gray-100 dark:bg-gray-800'
+                  : 'hover:bg-gray-100 dark:hover:bg-gray-800'
               }`}
               title="Settings"
             >
               <svg
-                className="w-5 h-5 text-gray-600"
+                className="w-5 h-5 text-gray-600 dark:text-gray-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -312,9 +316,33 @@ export default function RiyazPage() {
 
             {/* Settings dropdown */}
             {showSettings && (
-              <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-10">
+              <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-[#262626] rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-10">
                 <div className="px-3 py-2">
-                  <p className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
+                  <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
+                    Theme
+                  </p>
+                  <div className="space-y-1">
+                    {(['light', 'dark', 'system'] as const).map((themeOption) => (
+                      <button
+                        key={themeOption}
+                        onClick={() => {
+                          setTheme(themeOption);
+                          setShowSettings(false);
+                        }}
+                        className={`w-full text-left px-3 py-2 rounded-md text-sm transition-all cursor-pointer capitalize ${
+                          theme === themeOption
+                            ? 'bg-gray-900 dark:bg-[#e5e5e5] text-white dark:text-[#1a1a1a]'
+                            : 'text-gray-700 dark:text-[#d4d4d4] hover:bg-gray-100 dark:hover:bg-[#333333]'
+                        }`}
+                      >
+                        {themeOption}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="border-t border-gray-200 dark:border-gray-700 px-3 py-2">
+                  <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
                     Keyboard Layout
                   </p>
                   <div className="space-y-1">
@@ -327,8 +355,8 @@ export default function RiyazPage() {
                         }}
                         className={`w-full text-left px-3 py-2 rounded-md text-sm transition-all cursor-pointer ${
                           keyMapping === mapping
-                            ? 'bg-gray-900 text-white'
-                            : 'text-gray-700 hover:bg-gray-100'
+                            ? 'bg-gray-900 dark:bg-[#e5e5e5] text-white dark:text-[#1a1a1a]'
+                            : 'text-gray-700 dark:text-[#d4d4d4] hover:bg-gray-100 dark:hover:bg-[#333333]'
                         }`}
                       >
                         {KEY_MAPPINGS[mapping].label}
@@ -337,8 +365,8 @@ export default function RiyazPage() {
                   </div>
                 </div>
 
-                <div className="border-t border-gray-200 px-3 py-2">
-                  <p className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
+                <div className="border-t border-gray-200 dark:border-gray-700 px-3 py-2">
+                  <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
                     Note Display
                   </p>
                   <div className="space-y-1">
@@ -349,8 +377,8 @@ export default function RiyazPage() {
                       }}
                       className={`w-full text-left px-3 py-2 rounded-md text-sm transition-all cursor-pointer ${
                         noteDisplayMode === 'sargam'
-                          ? 'bg-gray-900 text-white'
-                          : 'text-gray-700 hover:bg-gray-100'
+                          ? 'bg-gray-900 dark:bg-[#e5e5e5] text-white dark:text-[#1a1a1a]'
+                          : 'text-gray-700 dark:text-[#d4d4d4] hover:bg-gray-100 dark:hover:bg-[#333333]'
                       }`}
                     >
                       Sargam (Sa Re Ga Ma...)
@@ -362,8 +390,8 @@ export default function RiyazPage() {
                       }}
                       className={`w-full text-left px-3 py-2 rounded-md text-sm transition-all cursor-pointer ${
                         noteDisplayMode === 'western'
-                          ? 'bg-gray-900 text-white'
-                          : 'text-gray-700 hover:bg-gray-100'
+                          ? 'bg-gray-900 dark:bg-[#e5e5e5] text-white dark:text-[#1a1a1a]'
+                          : 'text-gray-700 dark:text-[#d4d4d4] hover:bg-gray-100 dark:hover:bg-[#333333]'
                       }`}
                     >
                       Western (C D E F...)
@@ -381,10 +409,10 @@ export default function RiyazPage() {
 
         {/* Base Sa selector - always visible */}
         <div className="flex justify-center mb-8">
-          <div className="inline-flex items-center gap-3 bg-gray-50 rounded-full px-4 py-2">
+          <div className="inline-flex items-center gap-3 bg-gray-50 dark:bg-[#262626] rounded-full px-4 py-2">
             <div className="flex items-center gap-2">
               <svg
-                className="w-4 h-4 text-gray-500"
+                className="w-4 h-4 text-gray-500 dark:text-gray-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -396,13 +424,13 @@ export default function RiyazPage() {
                   d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
                 />
               </svg>
-              <span className="text-sm font-medium text-gray-700">Base Sa</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-[#d4d4d4]">Base Sa</span>
             </div>
             <select
               id="base-sa"
               value={baseFrequency}
               onChange={(e) => setBaseFrequency(Number(e.target.value))}
-              className="bg-white pl-3 pr-8 py-1.5 rounded-full border-0 text-sm font-medium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-gray-400 cursor-pointer appearance-none"
+              className="bg-white dark:bg-[#333333] pl-3 pr-8 py-1.5 rounded-full border-0 text-sm font-medium text-gray-900 dark:text-[#e5e5e5] shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500 cursor-pointer appearance-none"
               style={{
                 backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
                 backgroundPosition: 'right 0.5rem center',
@@ -429,7 +457,7 @@ export default function RiyazPage() {
                 setSelectedPattern(e.target.value);
                 if (isPlaying) stopAutoPlay();
               }}
-              className="px-3 py-2 border border-gray-300 rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 cursor-pointer"
+              className="px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-[#262626] text-gray-900 dark:text-[#e5e5e5] text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500 cursor-pointer"
             >
               {PATTERNS.map((pattern) => (
                 <option key={pattern.id} value={pattern.id}>
@@ -439,15 +467,15 @@ export default function RiyazPage() {
             </select>
 
             {/* Speed selector */}
-            <div className="inline-flex rounded-lg border border-gray-200 p-1">
+            <div className="inline-flex rounded-lg border border-gray-200 dark:border-gray-700 p-1 bg-white dark:bg-[#262626]">
               {SPEED_OPTIONS.map((speed, index) => (
                 <button
                   key={speed.label}
                   onClick={() => setSpeedIndex(index)}
                   className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all cursor-pointer ${
                     speedIndex === index
-                      ? 'bg-gray-900 text-white'
-                      : 'text-gray-600 hover:text-gray-900'
+                      ? 'bg-gray-900 dark:bg-[#e5e5e5] text-white dark:text-[#1a1a1a]'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-[#e5e5e5]'
                   }`}
                 >
                   {speed.label}
@@ -460,8 +488,8 @@ export default function RiyazPage() {
               onClick={togglePlay}
               className={`w-10 h-10 rounded-full flex items-center justify-center transition-all cursor-pointer ${
                 isPlaying
-                  ? 'bg-red-500 text-white hover:bg-red-600'
-                  : 'bg-gray-900 text-white hover:bg-gray-800'
+                  ? 'bg-red-500 dark:bg-red-600 text-white hover:bg-red-600 dark:hover:bg-red-700'
+                  : 'bg-gray-900 dark:bg-[#e5e5e5] text-white dark:text-[#1a1a1a] hover:bg-gray-800 dark:hover:bg-[#d4d4d4]'
               }`}
             >
               {isPlaying ? (
@@ -498,7 +526,7 @@ export default function RiyazPage() {
         </div>
 
         {/* Instructions */}
-        <div className="text-center text-sm text-gray-400">
+        <div className="text-center text-sm text-gray-400 dark:text-gray-500">
           <p>
             Keys: {keyMapping === 'sargam' ? 'S R G M P D N (⇧S for upper Sa)' : 'A S D F G H J K'}
           </p>
@@ -507,11 +535,11 @@ export default function RiyazPage() {
       </div>
 
       {/* Footer */}
-      <footer className="py-4 text-center text-sm text-gray-400">
+      <footer className="py-4 text-center text-sm text-gray-400 dark:text-gray-500">
         <p>
           Built with{' '}
           <svg
-            className="inline-block w-4 h-4 text-red-500 -mt-0.5"
+            className="inline-block w-4 h-4 text-red-500 dark:text-red-600 -mt-0.5"
             fill="currentColor"
             viewBox="0 0 24 24"
           >
@@ -522,7 +550,7 @@ export default function RiyazPage() {
             href="https://twitter.com/singhalkarun"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-600 hover:text-gray-900 transition-colors"
+            className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-[#e5e5e5] transition-colors"
           >
             @singhalkarun
           </a>

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { RiyazThemeProvider } from '@/app/contexts/RiyazThemeContext';
 
 export const metadata: Metadata = {
   title: 'Riyaz - Sargam Practice Tool',
@@ -46,5 +47,5 @@ export default function RiyazLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return <RiyazThemeProvider>{children}</RiyazThemeProvider>;
 }

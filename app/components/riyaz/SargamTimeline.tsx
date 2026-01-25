@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useState } from 'react';
 import { SARGAM_NOTES, SARGAM_TO_WESTERN, type SargamNote, type NoteDisplayMode } from './AudioEngine';
 
 interface SargamTimelineProps {
@@ -12,6 +12,11 @@ interface NoteBlock {
   note: SargamNote;
   startTime: number;
   endTime: number | null;
+}
+
+function isDarkMode(): boolean {
+  if (typeof window === 'undefined') return false;
+  return document.documentElement.classList.contains('dark');
 }
 
 const TIMELINE_DURATION = 5000; // 5 seconds visible
@@ -35,6 +40,23 @@ export default function SargamTimeline({
   const noteBlocksRef = useRef<NoteBlock[]>([]);
   const lastActiveNoteRef = useRef<SargamNote | null>(null);
   const animationRef = useRef<number | null>(null);
+  const [darkMode, setDarkMode] = useState(false);
+
+  // Track dark mode changes
+  useEffect(() => {
+    setDarkMode(isDarkMode());
+
+    const observer = new MutationObserver(() => {
+      setDarkMode(isDarkMode());
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   // Track note blocks
   useEffect(() => {
@@ -88,7 +110,7 @@ export default function SargamTimeline({
     const padding = 40; // Left padding for labels
 
     // Clear canvas
-    ctx.fillStyle = '#fafafa';
+    ctx.fillStyle = darkMode ? '#0a0a0a' : '#fafafa';
     ctx.fillRect(0, 0, width, height);
 
     // Draw lane backgrounds and labels
@@ -96,11 +118,13 @@ export default function SargamTimeline({
       const y = (7 - index) * laneHeight; // Reverse so Sa is at bottom
 
       // Alternate lane colors
-      ctx.fillStyle = index % 2 === 0 ? '#f5f5f5' : '#fafafa';
+      ctx.fillStyle = darkMode
+        ? index % 2 === 0 ? '#171717' : '#0a0a0a'
+        : index % 2 === 0 ? '#f5f5f5' : '#fafafa';
       ctx.fillRect(padding, y, width - padding, laneHeight);
 
       // Lane divider
-      ctx.strokeStyle = '#e5e7eb';
+      ctx.strokeStyle = darkMode ? '#262626' : '#e5e7eb';
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(padding, y + laneHeight);
@@ -108,7 +132,7 @@ export default function SargamTimeline({
       ctx.stroke();
 
       // Note label
-      ctx.fillStyle = '#6b7280';
+      ctx.fillStyle = darkMode ? '#9ca3af' : '#6b7280';
       ctx.font = '12px system-ui, sans-serif';
       ctx.textAlign = 'right';
       ctx.textBaseline = 'middle';
@@ -118,7 +142,7 @@ export default function SargamTimeline({
 
     // Draw vertical time line (current position)
     const currentX = width - 60;
-    ctx.strokeStyle = '#d1d5db';
+    ctx.strokeStyle = darkMode ? '#404040' : '#d1d5db';
     ctx.lineWidth = 2;
     ctx.setLineDash([4, 4]);
     ctx.beginPath();
@@ -156,13 +180,13 @@ export default function SargamTimeline({
     });
 
     // Draw "now" label
-    ctx.fillStyle = '#9ca3af';
+    ctx.fillStyle = darkMode ? '#6b7280' : '#9ca3af';
     ctx.font = '10px system-ui, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('now', currentX, height - 4);
 
     animationRef.current = requestAnimationFrame(draw);
-  }, [noteDisplayMode]);
+  }, [noteDisplayMode, darkMode]);
 
   useEffect(() => {
     animationRef.current = requestAnimationFrame(draw);
@@ -178,7 +202,7 @@ export default function SargamTimeline({
     <div className="w-full">
       <canvas
         ref={canvasRef}
-        className="w-full rounded-lg border border-gray-200"
+        className="w-full rounded-lg border border-gray-200 dark:border-gray-800"
         style={{ width: '100%', height: '280px' }}
       />
     </div>
