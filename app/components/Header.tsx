@@ -29,8 +29,8 @@ function NavButton({ sectionId, label, isActive, size = "lg", onClick }: NavButt
       onClick={() => onClick(sectionId)}
       className={`${sizeClass} font-medium duration-200 cursor-pointer focus:outline-none focus:ring-0 focus:border-none focus:ring-offset-0 focus:ring-transparent px-3 py-2 rounded-md transition-all ${
         isActive
-          ? "text-gray-900 bg-gray-100 border-b-2 border-gray-900 font-semibold shadow-sm"
-          : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+          ? "text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-800 border-b-2 border-gray-900 dark:border-gray-100 font-semibold shadow-sm"
+          : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800"
       }`}
       style={{ outline: 'none', WebkitTapHighlightColor: 'transparent' }}
     >

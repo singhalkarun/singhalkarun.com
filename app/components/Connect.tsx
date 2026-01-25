@@ -32,12 +32,12 @@ export default function Connect() {
 
   return (
     <section id="connect" className="mt-24">
-      <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">
+      <h3 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8 text-center md:text-left">
         {currentContent.connect.title}
       </h3>
-      
-      <div> 
-        <p className="text-xl lg:text-2xl leading-relaxed text-gray-800 mb-12">
+
+      <div>
+        <p className="text-xl lg:text-2xl leading-relaxed text-gray-800 dark:text-gray-200 mb-12">
           {currentContent.connect.description}
         </p>
 

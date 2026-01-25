@@ -21,7 +21,7 @@ export default function ModeToggle({ className = "", onToggle }: ModeToggleProps
     <button
       onClick={handleToggle}
       className={`relative inline-flex items-center justify-center rounded-full transition-all duration-200 focus:outline-none focus:ring-0 focus:border-0 focus:shadow-none shadow-sm cursor-pointer ${
-        mode === 'cat' ? 'bg-orange-400' : 'bg-gray-300'
+        mode === 'cat' ? 'bg-orange-400 dark:bg-orange-500' : 'bg-gray-300 dark:bg-gray-600'
       } ${
         // Desktop: smaller size, Mobile: bigger size
         'md:h-10 md:w-20 h-12 w-24'

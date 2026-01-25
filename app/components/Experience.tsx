@@ -24,7 +24,7 @@ export default function Experience({ company, designation, duration, companyUrl,
 
     let result = text;
     links.forEach((link) => {
-      const linkElement = `<a href="${link.url}" target="_blank" rel="noopener noreferrer" class="text-black hover:text-gray-700 underline transition-colors duration-200">${link.text}</a>`;
+      const linkElement = `<a href="${link.url}" target="_blank" rel="noopener noreferrer" class="text-black dark:text-white hover:text-gray-700 dark:hover:text-gray-300 underline transition-colors duration-200">${link.text}</a>`;
       result = result.replace(link.text, linkElement);
     });
 

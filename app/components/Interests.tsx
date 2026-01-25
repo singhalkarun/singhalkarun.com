@@ -10,7 +10,7 @@ export default function Interests() {
   const currentContent = content[mode];
   return (
     <section id="interests" className="mt-24">
-      <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">{currentContent.interests.title}</h3>
+      <h3 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8 text-center md:text-left">{currentContent.interests.title}</h3>
       <div className="flex flex-col lg:flex-row lg:items-start lg:space-x-12 space-y-8 lg:space-y-0">
         {/* Image section */}
         <div className="w-full lg:w-auto lg:flex-shrink-0 order-1 lg:order-1">
