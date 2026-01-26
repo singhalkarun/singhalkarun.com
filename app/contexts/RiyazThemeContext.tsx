@@ -56,7 +56,7 @@ export function RiyazThemeProvider({ children }: { children: ReactNode }) {
   const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>('light');
   const [mounted, setMounted] = useState(false);
 
-  // Initialize theme on mount
+  // Initialize theme on mount and cleanup on unmount
   useEffect(() => {
     const storedTheme = getStoredTheme();
     const resolved = resolveTheme(storedTheme);
@@ -68,6 +68,13 @@ export function RiyazThemeProvider({ children }: { children: ReactNode }) {
     applyTheme(resolved);
 
     setMounted(true);
+
+    // Cleanup: remove theme classes when leaving /riyaz page
+    return () => {
+      const root = document.documentElement;
+      root.classList.remove('light', 'dark');
+      root.removeAttribute(THEME_ATTRIBUTE);
+    };
   }, []);
 
   // Update resolved theme when theme changes

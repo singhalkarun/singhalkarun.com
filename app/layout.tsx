@@ -97,6 +97,9 @@ export default function RootLayout({
             __html: `
               (function() {
                 try {
+                  // Only apply theme on /riyaz page
+                  if (!window.location.pathname.startsWith('/riyaz')) return;
+
                   var theme = localStorage.getItem('riyaz-theme');
                   if (!theme) return; // Only apply if riyaz theme is set
                   var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
