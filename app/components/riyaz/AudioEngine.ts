@@ -336,3 +336,171 @@ export const SPEED_OPTIONS = [
   { label: 'Medium', bpm: 90 },
   { label: 'Fast', bpm: 120 },
 ];
+
+// Tanpura Drone
+// Harmonics for drone - richer and more sustained than melody notes
+const DRONE_HARMONICS = [
+  [1, 0.4, 0],        // Fundamental
+  [1, 0.2, 4],        // Detuned fundamental (beating)
+  [1, 0.2, -4],       // Detuned other way
+  [2, 0.25, 0],       // Octave
+  [2, 0.1, 6],        // Detuned octave
+  [3, 0.2, 0],        // Perfect fifth (overtone)
+  [4, 0.15, 0],       // Double octave
+  [5, 0.1, 0],        // Major third overtone
+  [6, 0.08, 0],       // Fifth overtone
+  [7, 0.05, 0],       // Minor seventh overtone
+  [8, 0.03, 0],       // Triple octave
+];
+
+export interface TanpuraDrone {
+  saOscillators: OscillatorNode[];
+  saGainNodes: GainNode[];
+  paOscillators: OscillatorNode[];
+  paGainNodes: GainNode[];
+  masterGain: GainNode;
+  vibratoLFO: OscillatorNode;
+  vibratoGain: GainNode;
+  filter: BiquadFilterNode;
+}
+
+// Start tanpura drone (Sa + Pa)
+export function startTanpuraDrone(
+  ctx: AudioContext,
+  baseFrequency: number,
+  volume: number = 0.15
+): TanpuraDrone {
+  const saOscillators: OscillatorNode[] = [];
+  const saGainNodes: GainNode[] = [];
+  const paOscillators: OscillatorNode[] = [];
+  const paGainNodes: GainNode[] = [];
+
+  // Master gain for overall volume control
+  const masterGain = ctx.createGain();
+  masterGain.gain.setValueAtTime(0, ctx.currentTime);
+
+  // Low-pass filter for warmth
+  const filter = ctx.createBiquadFilter();
+  filter.type = 'lowpass';
+  filter.frequency.setValueAtTime(baseFrequency * 6, ctx.currentTime);
+  filter.Q.setValueAtTime(0.7, ctx.currentTime);
+
+  // Very slow vibrato for natural variation
+  const vibratoLFO = ctx.createOscillator();
+  const vibratoGain = ctx.createGain();
+  vibratoLFO.type = 'sine';
+  vibratoLFO.frequency.setValueAtTime(0.5, ctx.currentTime); // Very slow (0.5 Hz)
+  vibratoGain.gain.setValueAtTime(1.5, ctx.currentTime); // Subtle depth
+  vibratoLFO.connect(vibratoGain);
+  vibratoLFO.start();
+
+  const saFreq = baseFrequency;
+  const paFreq = baseFrequency * SARGAM_RATIOS.Pa; // Perfect fifth
+
+  // Create Sa harmonics
+  DRONE_HARMONICS.forEach(([multiplier, amplitude, detune]) => {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(saFreq * (multiplier as number), ctx.currentTime);
+    osc.detune.setValueAtTime(detune as number, ctx.currentTime);
+
+    // Connect vibrato to fundamental oscillators
+    if (multiplier === 1) {
+      vibratoGain.connect(osc.detune);
+    }
+
+    gain.gain.setValueAtTime(amplitude as number, ctx.currentTime);
+
+    osc.connect(gain);
+    gain.connect(filter);
+
+    saOscillators.push(osc);
+    saGainNodes.push(gain);
+
+    osc.start();
+  });
+
+  // Create Pa harmonics
+  DRONE_HARMONICS.forEach(([multiplier, amplitude, detune]) => {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(paFreq * (multiplier as number), ctx.currentTime);
+    osc.detune.setValueAtTime((detune as number) + 2, ctx.currentTime); // Slightly different detune
+
+    // Connect vibrato
+    if (multiplier === 1) {
+      vibratoGain.connect(osc.detune);
+    }
+
+    // Pa is slightly quieter than Sa
+    gain.gain.setValueAtTime((amplitude as number) * 0.7, ctx.currentTime);
+
+    osc.connect(gain);
+    gain.connect(filter);
+
+    paOscillators.push(osc);
+    paGainNodes.push(gain);
+
+    osc.start();
+  });
+
+  // Connect filter -> master gain -> destination
+  filter.connect(masterGain);
+  masterGain.connect(ctx.destination);
+
+  // Fade in slowly
+  const fadeInTime = 2.0;
+  masterGain.gain.linearRampToValueAtTime(volume, ctx.currentTime + fadeInTime);
+
+  return {
+    saOscillators,
+    saGainNodes,
+    paOscillators,
+    paGainNodes,
+    masterGain,
+    vibratoLFO,
+    vibratoGain,
+    filter,
+  };
+}
+
+// Stop tanpura drone with smooth fade out
+export function stopTanpuraDrone(drone: TanpuraDrone, ctx: AudioContext): void {
+  const fadeOutTime = 1.5;
+
+  // Fade out
+  drone.masterGain.gain.cancelScheduledValues(ctx.currentTime);
+  drone.masterGain.gain.setValueAtTime(drone.masterGain.gain.value, ctx.currentTime);
+  drone.masterGain.gain.linearRampToValueAtTime(0, ctx.currentTime + fadeOutTime);
+
+  // Stop and disconnect after fade out
+  setTimeout(() => {
+    drone.vibratoLFO.stop();
+    drone.vibratoLFO.disconnect();
+    drone.vibratoGain.disconnect();
+
+    [...drone.saOscillators, ...drone.paOscillators].forEach((osc) => {
+      osc.stop();
+      osc.disconnect();
+    });
+
+    [...drone.saGainNodes, ...drone.paGainNodes].forEach((gain) => {
+      gain.disconnect();
+    });
+
+    drone.filter.disconnect();
+    drone.masterGain.disconnect();
+  }, fadeOutTime * 1000 + 100);
+}
+
+// Adjust tanpura drone volume
+export function setTanpuraDroneVolume(drone: TanpuraDrone, ctx: AudioContext, volume: number): void {
+  const transitionTime = 0.1;
+  drone.masterGain.gain.cancelScheduledValues(ctx.currentTime);
+  drone.masterGain.gain.setValueAtTime(drone.masterGain.gain.value, ctx.currentTime);
+  drone.masterGain.gain.linearRampToValueAtTime(volume, ctx.currentTime + transitionTime);
+}
