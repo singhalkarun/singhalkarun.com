@@ -124,36 +124,33 @@ export default function RiyazPage() {
     const noteDuration = (60 / bpm) * 1000;
 
     const playNextNote = (index: number) => {
-      if (index >= pattern.notes.length) {
-        if (playbackRef.current.timeoutId) {
-          clearTimeout(playbackRef.current.timeoutId);
-          playbackRef.current.timeoutId = null;
-        }
-        playbackRef.current.noteIndex = 0;
-        setIsPlaying(false);
+      // Loop back to start when reaching the end
+      const currentIndex = index % pattern.notes.length;
+      const note = pattern.notes[currentIndex];
 
-        if (voiceRef.current && audioContextRef.current) {
-          stopNote(voiceRef.current, audioContextRef.current);
-          voiceRef.current = null;
-          setActiveNote(null);
-        }
-        return;
-      }
-
-      const note = pattern.notes[index];
-
+      // Stop previous note
       if (voiceRef.current && audioContextRef.current) {
         stopNote(voiceRef.current, audioContextRef.current);
+        voiceRef.current = null;
+        setActiveNote(null);
       }
 
-      const frequency = getNoteFrequency(note, baseFrequency);
-      voiceRef.current = playNote(ctx, frequency);
-      setActiveNote(note);
+      // Add a small gap between notes (20% of note duration, min 50ms, max 150ms)
+      const gapDuration = Math.max(50, Math.min(150, noteDuration * 0.2));
 
-      playbackRef.current.noteIndex = index;
+      // Schedule the gap and then play the next note
       playbackRef.current.timeoutId = setTimeout(() => {
-        playNextNote(index + 1);
-      }, noteDuration);
+        const frequency = getNoteFrequency(note, baseFrequency);
+        voiceRef.current = playNote(ctx, frequency);
+        setActiveNote(note);
+
+        playbackRef.current.noteIndex = currentIndex;
+
+        // Schedule next note after the remaining duration
+        playbackRef.current.timeoutId = setTimeout(() => {
+          playNextNote(index + 1);
+        }, noteDuration - gapDuration);
+      }, gapDuration);
     };
 
     playNextNote(0);
