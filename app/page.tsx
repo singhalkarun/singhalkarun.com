@@ -128,18 +128,44 @@ export default function Home() {
               {currentProjects.map((project, index) => (
                 <div key={index} className="pb-12 border-b border-gray-200 last:border-b-0">
                   <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                    <a 
-                      href={project.link} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-black hover:text-gray-700 underline transition-colors duration-200"
-                    >
-                      {project.title}
-                    </a>
+                    {project.hostedLink ? (
+                      <a
+                        href={project.hostedLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-gray-700 underline transition-colors duration-200"
+                      >
+                        {project.title}
+                      </a>
+                    ) : (
+                      project.title
+                    )}
                   </h3>
                   <p className="text-xl lg:text-2xl leading-relaxed text-gray-800">
                     {project.description}
                   </p>
+                  <div className="flex gap-4 mt-4">
+                    {project.link && (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-lg text-black hover:text-gray-700 underline transition-colors duration-200"
+                      >
+                        Github
+                      </a>
+                    )}
+                    {project.hostedLink && (
+                      <a
+                        href={project.hostedLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-lg text-black hover:text-gray-700 underline transition-colors duration-200"
+                      >
+                        Try Now
+                      </a>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>

@@ -242,7 +242,7 @@ export const experienceData = {
       companyUrl: "https://esmagico.com",
       points: [
         { 
-          text: "Led a 10+ member team to build the Plum Goodness app (1M+ downloads, 4.5★ rating on Android and iOS)",
+          text: "Led a 5+ member team to build the Plum Goodness app (1M+ downloads, 4.5★ rating on Android and iOS)",
           links: [
             {
               text: "Plum Goodness app",
@@ -375,7 +375,7 @@ export const experienceData = {
       companyUrl: "https://esmagico.com",
       points: [
         { 
-          text: "Led a 10+ member team to build the Plum Goodness app (1M+ downloads, 4.5★ rating on Android and iOS) *yawns* I was being adorable while he struggled.",
+          text: "Led a 5+ member team to build the Plum Goodness app (1M+ downloads, 4.5★ rating on Android and iOS) *yawns* I was being adorable while he struggled.",
           links: [
             {
               text: "Plum Goodness app",
@@ -442,14 +442,28 @@ export const projectsData = {
     {
       title: "Scribbl - Multiplayer Drawing Game",
       description: "A real-time multiplayer drawing and guessing game inspired by Skribbl.io. Players take turns drawing words while others compete to guess correctly and earn points.",
-      link: "https://github.com/singhalkarun/scribbl"
+      link: "https://github.com/singhalkarun/scribbl",
+      hostedLink: "https://scribbl.singhalkarun.com/"
+    },
+    {
+      title: "Riyaz - Sargam Practice App",
+      description: "An ad-free Indian classical music practice tool with a playable sargam keyboard, auto-play alankars at adjustable speeds, tanpura drone with volume control, and configurable base Sa pitch. Supports keyboard shortcuts, multiple notation styles (sargam/western), and dark mode.",
+      link: "",
+      hostedLink: "https://www.singhalkarun.com/riyaz"
     }
   ],
   cat: [
     {
-      title: "Scribbl - Multiplayer Drawing Game - I'm obviously better", 
+      title: "Scribbl - Multiplayer Drawing Game - I'm obviously better",
       description: "A drawing game. Players draw words and others guess. I could draw better with my paws, obviously. *stretches*",
-      link: "https://github.com/singhalkarun/scribbl"
+      link: "https://github.com/singhalkarun/scribbl",
+      hostedLink: "https://scribbl.singhalkarun.com/"
+    },
+    {
+      title: "Riyaz - I Make Better Music With My Purrs",
+      description: "He built a music practice app because other apps had ads. Cute. I already have perfect pitch - my meows are always in tune. It has a 'tanpura drone' but my purring is the real drone. *yawns musically*",
+      link: "",
+      hostedLink: "https://www.singhalkarun.com/riyaz"
     }
   ]
 };
