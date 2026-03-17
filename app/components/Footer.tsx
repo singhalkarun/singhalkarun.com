@@ -37,7 +37,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://x.com/singhalkarun"
+              href="https://x.com/singhalkarunx"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-600 hover:text-gray-900 transition-colors duration-200"

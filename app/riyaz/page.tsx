@@ -732,7 +732,7 @@ export default function RiyazPage() {
           </svg>{' '}
           by{' '}
           <a
-            href="https://twitter.com/singhalkarun"
+            href="https://twitter.com/singhalkarunx"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-[#e5e5e5] transition-colors"
