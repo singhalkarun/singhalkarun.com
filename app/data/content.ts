@@ -450,6 +450,12 @@ export const projectsData = {
       description: "An ad-free Indian classical music practice tool with a playable sargam keyboard, auto-play alankars at adjustable speeds, tanpura drone with volume control, and configurable base Sa pitch. Supports keyboard shortcuts, multiple notation styles (sargam/western), and dark mode.",
       link: "",
       hostedLink: "https://www.singhalkarun.com/riyaz"
+    },
+    {
+      title: "LetHerDo - AI Mobile Agent",
+      description: "An AI Agent that operates a real mobile (running on cloud) for you. You can subscribe to workflows (example, a LinkedIn outbound workflow, which will open LinkedIn daily for you, find relevant leads and DM them - you need to login Linkedin only once and the state persists). You can design any such workflows in natural language. You pay basis the tasks agent does for you.",
+      link: "",
+      hostedLink: "https://letherdo.com"
     }
   ],
   cat: [
@@ -464,6 +470,12 @@ export const projectsData = {
       description: "He built a music practice app because other apps had ads. Cute. I already have perfect pitch - my meows are always in tune. It has a 'tanpura drone' but my purring is the real drone. *yawns musically*",
       link: "",
       hostedLink: "https://www.singhalkarun.com/riyaz"
+    },
+    {
+      title: "LetHerDo - I Already Have a Cloud Servant",
+      description: "He made a cloud phone with an AI agent that does tasks for you - LinkedIn DMs, workflows, the whole thing. You login once and it remembers. Big deal. I trained him to refill my food bowl once and the state persists forever. I don't need workflows, I just meow. *knocks phone off table*",
+      link: "",
+      hostedLink: "https://letherdo.com"
     }
   ]
 };
